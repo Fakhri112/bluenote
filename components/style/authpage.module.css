@@ -1,0 +1,32 @@
+.brand{
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.brand>h1{
+    font-family: 'Kdam Thmor Pro', sans-serif;
+    font-size: 28px;
+}
+
+.button_group{
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+}
+
+.button_group>button{
+    background-color: transparent;
+    width: 210px;
+    border: unset;
+}
+
+@media only screen and (max-width: 600px) {
+.button_group{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+}

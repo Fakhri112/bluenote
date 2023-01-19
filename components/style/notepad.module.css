@@ -1,0 +1,321 @@
+.note_panel {
+    margin-top: 15px;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 50px;
+    height: 97vh;
+    animation: slide-left 0.3s both;
+
+}
+
+/* left column */
+
+.left_right_column {
+    margin-top: 30px;
+}
+
+.button_left {
+    border: none;
+    background-color: rgba(255, 255, 255, 1.0);
+}
+
+/* notepad */
+
+.notepad {
+    border: 1px solid rgb(190, 190, 190);
+    border-radius: 4px;
+    margin: auto;
+    width: 100%;
+    height: 100%;
+    max-width: 80vw;
+    min-width: 200px;
+    padding: 10px;
+    overflow: auto;
+
+}
+
+.notepad>.note_title {
+    display: flex;
+    margin-bottom: 5px;
+    width: 100%;
+}
+
+.notepad>.note_title>.input_title {
+    cursor: default;
+    background-color: rgba(0, 0, 0, 0.0);
+    ;
+    border-width: 0;
+    width: 100%;
+    height: 50px;
+    font-size: 40px;
+    font-weight: 500;
+}
+
+.notepad>.note_title>.title_strikethrough {
+    text-decoration: line-through;
+    color: rgb(107, 106, 106);
+    text-decoration-thickness: 1px;
+    text-decoration-color: rgb(48, 48, 48);
+}
+
+.notepad>.note_title>.input_title:focus {
+    border: 1px solid rgb(206, 206, 206);
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 0;
+    outline: none !important;
+    width: 100%;
+    height: 50px;
+    font-size: 40px;
+    font-weight: 500;
+}
+
+.notepad>.note_title>button {
+    padding: 0%;
+    border: 0;
+    right: 200px;
+    opacity: 100%;
+}
+
+.notepad>.note_title>button>svg {
+    background-color: white;
+    border: 0px;
+    padding: 0%;
+    width: 15px;
+    margin-left: -40px;
+
+}
+
+.notepad>textarea {
+    resize: none;
+    width: 100%;
+    height: 89%;
+    cursor: default;
+    background-color: rgba(0, 0, 0, 0.0);
+    ;
+    border-width: 0;
+}
+
+.notepad>textarea:focus {
+    resize: none;
+    width: 100%;
+    height: 89%;
+    cursor: auto;
+    outline: none !important;
+    border: 1px solid rgb(206, 206, 206);
+    background-color: rgba(255, 255, 255, 0.8);
+}
+
+.clear_button>svg {
+    background-color: transparent !important;
+}
+
+
+
+
+
+/* ////////////////////////////// */
+
+/* Todo Menu */
+
+.navTodo {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    margin-top: 15px;
+}
+
+.navTodo>div>a,
+.addTodo {
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.navTodo>div>a {
+    margin-left: 15px;
+}
+
+.addTodo,
+.navTodo>div>a {
+    color: rgb(3, 3, 189) !important;
+}
+
+.dropdownNavTodo>ul {
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+
+.dropdownNavTodo>ul>li {
+    padding-top: 4px;
+    padding-bottom: 4px;
+}
+
+.dropdownNavTodo>ul>li>a {
+    cursor: pointer;
+    font-size: 12px;
+    margin-bottom: 8px;
+    margin-left: 15px;
+}
+
+.dropdownNavTodo>ul>li:hover {
+    width: auto;
+    background-color: rgb(228, 228, 228);
+}
+
+
+/* todo main content */
+
+.todoList>label {
+    font-size: 20px;
+    width: 80%;
+}
+
+.todoList:hover,
+.todoList>label:hover {
+    cursor: text
+}
+
+.checkbox {
+    width: 20px;
+    height: 20px;
+    margin-right: 15px;
+}
+
+.todoChecked {
+    text-decoration: line-through;
+    color: rgb(107, 106, 106);
+    text-decoration-thickness: 1px;
+    text-decoration-color: rgb(48, 48, 48);
+
+}
+
+.editTodoList>div {
+    display: flex;
+}
+
+.editTodoList>div>button {
+    padding: 1px 0px;
+    background-color: rgba(255, 255, 255, 0.0);
+    border: unset;
+}
+
+.editTodoList>div>button>svg>circle {
+    fill: rgb(161, 161, 161);
+}
+
+.editTodo {
+    background-color: rgba(0, 0, 0, 0.0);
+    margin: 0;
+    border: unset;
+    width: 100%;
+    font-size: 20px;
+    resize: none;
+    overflow: hidden;
+}
+
+.editTodo:focus {
+    border: 1px solid rgb(206, 206, 206);
+    background-color: rgba(255, 255, 255, 0.8);
+    margin: 0;
+    border-radius: 0;
+    outline: none !important;
+    width: 100%;
+    font-size: 20px;
+    resize: none;
+    overflow: hidden;
+}
+
+
+
+
+/* ////////////////////////////////// */
+
+/* menu option on right-side */
+
+.option {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    align-items: center;
+    text-align: center;
+}
+
+
+.option>.archive_trash {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.option>div>button>svg {
+    margin-top: -4px;
+}
+
+.option>.archive_trash>button {
+    padding: 0%;
+    width: 40px;
+    height: 40px;
+    border: 2px solid grey;
+    border-radius: 50px;
+}
+
+.option>.archive_trash>button:hover {
+    background-color: white;
+}
+
+.option>div>button>svg {
+    width: 20px;
+}
+
+.unarchive {
+    margin-top: 4px;
+}
+
+.flex_menu {
+    background-color: rgb(255, 255, 255);
+    height: 135px;
+    padding: 0%;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    list-style: none;
+}
+
+.container_color_option {
+    padding-top: 2px;
+    height: 139px;
+}
+
+
+/* popup modal */
+
+.saved {
+    z-index: 2000;
+    border: 1px solid rgb(190, 190, 190);
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 270px;
+    height: 38px;
+    background-color: rgba(51, 46, 46, 255);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: aliceblue;
+}
+
+
+/* animation keyframe when page load */
+
+@keyframes slide-left {
+    0% {
+        transform: translateX(40px);
+        opacity: 0%;
+    }
+
+    100% {
+        transform: translateX(0px);
+        opacity: 100%;
+    }
+}

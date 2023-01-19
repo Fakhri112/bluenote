@@ -1,0 +1,120 @@
+header>.menu {
+    display: flex;
+    gap: 18px;
+    align-items: center;
+    animation: slide-left 0.3s both;
+}
+
+.active {
+    color: white !important;
+}
+
+.menu>.back {
+    margin-right: 20px;
+}
+
+.menu>input {
+    height: 31px;
+    width: 100px;
+}
+
+
+.dropdown>button {
+    width: 90px;
+    border-radius: 0%;
+}
+
+.dropdown_plus {
+    width: 100%;
+    display: block;
+}
+
+.user>button {
+    background-color: blue;
+    border: unset;
+}
+
+/* main section */
+
+.notes_section {
+    position: absolute;
+    width: 100%;
+    z-index: -1;
+    margin-top: 12px;
+}
+
+.note {
+    width: 155px;
+    height: 160px;
+    overflow-y: hidden;
+    padding: 0 4px;
+    /* animation: slide-left 0.3s both; */
+}
+
+.note:hover {
+    padding: 0px 2px;
+    border-left: 2px solid grey;
+    border-right: 2px solid grey;
+    border-bottom: 2px solid grey;
+}
+
+
+
+.notes_section>a>h2:hover {
+    color: #494949;
+}
+
+.note>p {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 13px;
+}
+
+.note_title {
+    white-space: nowrap;
+    overflow: hidden;
+    margin: 0;
+    padding: 0%;
+}
+
+.note_title>p {
+    margin-top: 2px;
+    padding: 0%;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 600;
+    font-size: 13px;
+}
+
+.note_preview {
+    margin: 0%;
+    padding: 0%;
+}
+
+.all_notes {
+
+    display: flex;
+    align-content: flex-start;
+    overflow: auto;
+    width: 100%;
+    gap: 10px;
+    height: 530px;
+    flex-direction: column;
+    flex-wrap: wrap;
+    padding: 0 120px;
+
+}
+
+
+
+/* animation keyframe */
+
+@keyframes slide-left {
+    0% {
+        transform: translateX(40px);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateX(0px);
+        opacity: 1;
+    }
+}
