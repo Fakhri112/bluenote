@@ -37,6 +37,7 @@ const NoteComponent = (props) => {
         unarchive: false,
         untrash: false,
     })
+    const [deletePerm, SetDeletePerm] = useState()
     const [backsave, SetBacksave] = useState(false)
     const [archiveConfirm, SetArchiveConfirm] = useState()
     const [trashConfirm, SetTrashConfirm] = useState()
@@ -150,9 +151,20 @@ const NoteComponent = (props) => {
             .catch((error) => {
                 console.log(error)
             })
-        console.log(noteID)
         if (noteID) return await deleteDoc(doc(db, originCollection, noteID));
         return
+    }
+
+    const handleDeletePermanent = async () => {
+        if (!noteID) return
+        setSavePopUp({ ...savePopUp, moving: true })
+        return await deleteDoc(doc(db, 'trashes', noteID))
+            .then((res) => {
+                setSavePopUp({ ...savePopUp, success: true, moving: false })
+            })
+            .catch((error) => {
+                console.log(error)
+            });
     }
 
 
@@ -196,11 +208,8 @@ const NoteComponent = (props) => {
         if (trashConfirm) { handleArchiveTrash('trashes', 'notes') }
         if (restore.unarchive) { handleArchiveTrash('notes', 'archives') }
         if (restore.untrash) { handleArchiveTrash('notes', 'trashes') }
-        return () => {
-            SetArchiveConfirm(false)
-            SetTrashConfirm(false)
-        }
-    }, [archiveConfirm, trashConfirm, inputTitle, content, restore])
+        if (deletePerm) { handleDeletePermanent() }
+    }, [archiveConfirm, trashConfirm, inputTitle, content, restore, deletePerm])
 
 
     useEffect(() => {
@@ -220,9 +229,14 @@ const NoteComponent = (props) => {
             return () => clearTimeout(timer);
         }
         if (savePopUp.success) {
-            if (props.isArchive || props.isTrash) {
+            if (props.isArchive) {
                 let archive = sessionGet('Context_hook').archive_data
                 sessionSet('Context_hook', { archive_data: archive, removeData: noteID })
+                return route.back()
+            }
+            if (props.isTrash) {
+                let trash = sessionGet('Context_hook').trash_data
+                sessionSet('Context_hook', { trash_data: trash, removeData: noteID })
                 return route.back()
             }
 
@@ -261,10 +275,11 @@ const NoteComponent = (props) => {
                         {(savePopUp.saving) ? < NoteSaved status={"Saving"} /> : null}
                         {(savePopUp.moving) ? < NoteSaved status={"Moving"} /> : null}
                         {(savePopUp.success) ? < NoteSaved status={"Success"} /> : null}
-
                         <div className={style.note_title}
                         >
-                            <input type="text"
+                            <input
+                                readOnly={(props.isTrash) ? true : false}
+                                type="text"
                                 className={style.input_title}
                                 onFocus={() => {
                                     inputFocus(),
@@ -282,6 +297,7 @@ const NoteComponent = (props) => {
                             {clearButton}
                         </div>
                         <textarea
+                            readOnly={(props.isTrash) ? true : false}
                             ref={textareaRef}
                             name="content"
                             autoFocus={(Object.keys(props).length === 0) ? true : false}
@@ -307,6 +323,7 @@ const NoteComponent = (props) => {
                         isTrash={props.isTrash}
                         unarchive={conf => SetRestore({ ...restore, unarchive: conf })}
                         untrash={conf => SetRestore({ ...restore, untrash: conf })}
+                        deletePerm={conf => SetDeletePerm(conf)}
                     />
                 </main>
             }

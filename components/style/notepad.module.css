@@ -266,6 +266,25 @@
     width: 20px;
 }
 
+.option>.deleteBtn_restore {
+    font-size: 2.4vmin;
+    border: 1px solid #a99999;
+    background: none;
+    width: 7vw;
+}
+
+.option>.deleteBtn_deletePerm {
+    font-size: 2vmin;
+    border: 1px solid #a99999;
+    background: none;
+    width: 7vw;
+}
+
+.deleteBtn_deletePerm:hover,
+.deleteBtn_restore:hover {
+    background-color: #e4e4e4;
+}
+
 .unarchive {
     margin-top: 4px;
 }
@@ -291,7 +310,7 @@
 /* popup modal */
 
 .saved {
-    z-index: 2000;
+    /* z-index: 2000; */
     border: 1px solid rgb(190, 190, 190);
     position: fixed;
     left: 50%;
