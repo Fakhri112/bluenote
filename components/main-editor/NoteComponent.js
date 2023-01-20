@@ -282,8 +282,8 @@ const NoteComponent = (props) => {
                                 type="text"
                                 className={style.input_title}
                                 onFocus={() => {
-                                    inputFocus(),
-                                        SetLeftButton(true),
+                                    (props.isTrash) ? null : inputFocus(),
+                                        (props.isTrash) ? null : SetLeftButton(true),
                                         SetAutoTitle(false),
                                         SetBacksave(false)
                                 }}
@@ -301,7 +301,10 @@ const NoteComponent = (props) => {
                             ref={textareaRef}
                             name="content"
                             autoFocus={(Object.keys(props).length === 0) ? true : false}
-                            onFocus={() => { SetLeftButton(true), SetBacksave(false) }}
+                            onFocus={() => {
+                                (props.isTrash) ? null : SetLeftButton(true),
+                                    SetBacksave(false)
+                            }}
                             onChange={handleContent}
                             onKeyPress={(e) => {
                                 if (e.key == "Enter") {

@@ -268,9 +268,10 @@ const TodoComponent = (props) => {
                             className={
                                 strikeTitle()
                             }
+                            readOnly={(props.isTrash) ? true : false}
                             onFocus={() => {
-                                titleFocus(),
-                                    SetEditMode(true)
+                                (props.isTrash) ? null : titleFocus(),
+                                    (props.isTrash) ? null : SetEditMode(true)
                             }}
                             onBlur={titleUnfocus}
                             ref={titleRef}
@@ -281,27 +282,30 @@ const TodoComponent = (props) => {
                         />
                         {clearButton}
                     </div>
-                    <NavTodo changeEditMode={value => SetEditMode(value)}
+                    <NavTodo
+                        isTrash={props.isTrash}
+                        changeEditMode={value => SetEditMode(value)}
                         todoData={todoData}
                         updateData={data => SetTodoData(data)}
                         triggerTop={prop => SetTriggerTop(prop)}
                         tgrTodoData={prop => SetTgrTodoData(prop)}
                     />
                     {
-                        (editMode) ? <EditTodo updateData={data => SetTodoData(data)}
+                        (editMode && !props.isTrash) ? <EditTodo updateData={data => SetTodoData(data)}
                             todoData={todoData}
                             triggerTop={triggerTop}
                             indexFocus={indexFocus}
                             updateIndex={index => SetIndexFocus(index)}
                         />
                             : <Todo
+                                isTrash={props.isTrash}
                                 todoData={todoData}
                                 updateData={(data) =>
                                     SetTodoData(data)
                                 }
                                 tgrTodoData={prop => SetTgrTodoData(prop)}
                                 editMode={value =>
-                                    SetEditMode(value)
+                                    (props.isTrash) ? true : SetEditMode(value)
                                 }
                                 indexData={index =>
                                     SetIndexFocus(index)

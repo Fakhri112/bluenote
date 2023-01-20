@@ -48,6 +48,7 @@ const Todo = (props) => {
                                     onChange={() => checkboxChange(data.id, data.checked)}
                                     className={style.checkbox}
                                     type="checkbox"
+                                    disabled={(props.isTrash) ? true : false}
                                 />
                                 <label className={data.checked == true ? style.todoChecked : ""}
                                     id={data.id}

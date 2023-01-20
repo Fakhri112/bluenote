@@ -9,6 +9,7 @@ const NavTodo = (props) => {
 
 
     const addTodoTop = () => {
+        if (props.isTrash) return
         SetTrigger(trigger + 1)
         if (!props.editMode) {
             props.changeEditMode(true)
@@ -25,6 +26,7 @@ const NavTodo = (props) => {
     }
 
     const sortTodo = (status) => {
+        if (props.isTrash) return
         SetTrigger(trigger + 1)
         const items = Array.from(props.todoData)
         if (status) {
@@ -35,12 +37,14 @@ const NavTodo = (props) => {
     }
 
     const deleteCheckedItems = () => {
+        if (props.isTrash) return
         const items = Array.from(props.todoData)
         const result = items.filter((data) => data.checked == false)
         props.updateData(result)
     }
 
     const itemsSelection = (option) => {
+        if (props.isTrash) return
         SetTrigger(trigger + 1)
         const items = Array.from(props.todoData)
         for (const obj of items) {
