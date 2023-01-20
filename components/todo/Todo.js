@@ -35,10 +35,10 @@ const Todo = (props) => {
 
 
     return (
-        <TransitionGroup in="true" className="todo-list">
+        <TransitionGroup className="todo-list">
             {
                 props.todoData.map((data, index) => (
-                    <Transition in={true} key={data.id} timeout={{ enter: TIMEOUT, exit: TIMEOUT }}>
+                    <Transition key={data.id} timeout={TIMEOUT}>
                         {status => (
                             <div style={{
                                 ...deleteTransition[status]

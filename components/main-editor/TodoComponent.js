@@ -15,8 +15,8 @@ import NavTodo from '../todo/NavTodo'
 import { Timestamp, addDoc, collection, updateDoc, doc, deleteDoc } from 'firebase/firestore'
 
 const TodoComponent = (props) => {
-    const [clearButton, SetClearButton] = useState(<div></div>)
-    const [inputTitle, SetInputTitle] = useState("Hello World")
+    const [clearButton, SetClearButton] = useState(null)
+    const [inputTitle, SetInputTitle] = useState("")
     const [notepadColor, SetNotepadColor] = useState({
         new_color: color['yellow_notepad'],
         old_color: color['yellow_notepad']
@@ -42,11 +42,11 @@ const TodoComponent = (props) => {
         untrash: false,
     })
     const [backsave, SetBacksave] = useState(false)
-    const [triggerTop, SetTriggerTop] = useState()
+    const [triggerFocus, SetTriggerFocus] = useState()
     const [tgrTodoData, SetTgrTodoData] = useState()
     const [archiveConfirm, SetArchiveConfirm] = useState()
     const [trashConfirm, SetTrashConfirm] = useState()
-    const { userData, DataContext, SetDataContext } = useDataContext()
+    const { userData } = useDataContext()
     const isMounted = useRef(false);
     const titleRef = useRef()
     const route = useRouter()
@@ -65,7 +65,7 @@ const TodoComponent = (props) => {
                 </button>
             )
         }
-        return SetClearButton(<div></div>)
+        return SetClearButton(null)
     }
 
     const clearTitle = (e) => {
@@ -77,9 +77,8 @@ const TodoComponent = (props) => {
 
     const titleUnfocus = () => {
         titleRef.current.className = strikeTitle()
-        SetClearButton(
-            <div></div>
-        )
+        SetIndexFocus(0)
+        SetClearButton(null)
     }
 
     const strikeTitle = () => {
@@ -232,17 +231,27 @@ const TodoComponent = (props) => {
         }
         if (savePopUp.success) {
 
-            if (props.isArchive || props.isTrash) {
+            if (props.isArchive) {
                 let archive = sessionGet('Context_hook').archive_data
                 sessionSet('Context_hook', { archive_data: archive, removeData: todoID })
                 return route.back()
             }
-
+            if (props.isTrash) {
+                let trash = sessionGet('Context_hook').trash_data
+                sessionSet('Context_hook', { trash_data: trash, removeData: todoID })
+                return route.back()
+            }
+            if (sessionGet('Context_hook')?.allnotes_data) {
+                let allnotes = sessionGet('Context_hook').allnotes_data
+                sessionSet('Context_hook', { allnotes_data: allnotes, removeData: todoID })
+                return route.back()
+            }
             timer = setTimeout(() => {
                 setSavePopUp({ ...savePopUp, success: false })
                 route.back()
             }, 2000)
             return () => clearTimeout(timer);
+
         }
     }, [savePopUp])
 
@@ -265,6 +274,7 @@ const TodoComponent = (props) => {
                     <div className={style.note_title}
                     >
                         <input type="text"
+                            autoFocus={(Object.keys(props).length === 0) ? true : false}
                             className={
                                 strikeTitle()
                             }
@@ -286,17 +296,20 @@ const TodoComponent = (props) => {
                         isTrash={props.isTrash}
                         changeEditMode={value => SetEditMode(value)}
                         todoData={todoData}
-                        updateData={data => SetTodoData(data)}
-                        triggerTop={prop => SetTriggerTop(prop)}
+                        // updateData={data => SetTodoData(data)}
+                        triggerFocus={prop => SetTriggerFocus(prop)}
                         tgrTodoData={prop => SetTgrTodoData(prop)}
+                        updateData={data => SetTodoData([...data])}
                     />
                     {
-                        (editMode && !props.isTrash) ? <EditTodo updateData={data => SetTodoData(data)}
-                            todoData={todoData}
-                            triggerTop={triggerTop}
-                            indexFocus={indexFocus}
-                            updateIndex={index => SetIndexFocus(index)}
-                        />
+                        (editMode && !props.isTrash) ?
+                            <EditTodo updateData={data => SetTodoData(data)}
+                                todoData={todoData}
+                                triggerFocus={triggerFocus}
+                                indexFocus={indexFocus}
+                                titleFocus={clearButton}
+                                updateIndex={index => SetIndexFocus(index)}
+                            />
                             : <Todo
                                 isTrash={props.isTrash}
                                 todoData={todoData}

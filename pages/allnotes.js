@@ -3,17 +3,37 @@ import React, { useEffect, useState } from 'react'
 import style from '../components/style/allnotes.module.css'
 import color from '../components/style/colornote.module.css'
 import { useDataContext } from '../src/hook/StateContext'
-import { getContentChecklist } from '../src/function/lib'
+import { getContentChecklist, sessionGet, sessionSet } from '../src/function/lib'
+import { Transition, TransitionGroup } from 'react-transition-group'
 import Image from "next/image"
-import { useRouter } from 'next/router'
 const axios = require('axios');
+const TIMEOUT = 300
+
+const transitionRemove = {
+    entering: {
+        transform: 'translateX(40px)',
+        opacity: 0
+    },
+    entered: {
+        transform: 'translateX(0px)',
+        opacity: 1,
+        transition: `opacity ${TIMEOUT}ms, transform ${TIMEOUT}ms`,
+    },
+    exiting: {
+        transition: `opacity ${TIMEOUT}ms, transform ${TIMEOUT}ms, margin-bottom ${TIMEOUT}ms`,
+        marginBottom: '-27vh',
+        opacity: 0,
+        transform: `translateY(-50px)`,
+    },
+    exited: {
+        opacity: 0
+    }
+}
 
 const allnotes = () => {
     const [allnotes, SetAllNotes] = useState([])
     const { userData } = useDataContext()
     const [sortlistActive, SetSortlistActive] = useState()
-    const [dataBackup, SetDataBackup] = useState([])
-    const route = useRouter()
 
     const fetchNotes = async () => {
         if (userData) {
@@ -32,13 +52,14 @@ const allnotes = () => {
                 if (fa > fb) return -1;
 
             })
-            SetDataBackup(dataCombined)
+            sessionSet('Context_hook', { allnotes_data: dataCombined })
             return SetAllNotes(dataCombined)
         }
     }
 
     const searchFilter = (text) => {
-        let notesCopy = dataBackup,
+        let getDataSession = sessionGet('Context_hook')
+        let notesCopy = getDataSession?.allnotes_data,
             searchText = text.toLowerCase()
 
         let filtered = notesCopy.filter((item) =>
@@ -46,21 +67,39 @@ const allnotes = () => {
             (Array.isArray(item.content) && getContentChecklist(item.content).toLowerCase().includes(searchText)) ||
             (!Array.isArray(item.content) && item.content.toLowerCase().includes(searchText))
         )
-        if (text == '') return SetAllNotes([...dataBackup])
+        if (text == '') return SetAllNotes([...getDataSession?.allnotes_data])
         return SetAllNotes([...filtered])
     }
 
-    // useEffect(() => {
-    //     if (!userData) route.push("/")
-    // },[])
+    useEffect(() => {
+        let allnotes_copy = allnotes
+        let a = sessionGet('Context_hook')
+        setTimeout(() => {
+
+            if (a?.hasOwnProperty('removeData')) {
+                let remove = allnotes_copy.filter(data => data.id !== a.removeData)
+                if (allnotes.length !== remove.length) {
+                    SetAllNotes([...remove])
+                }
+                if (a.allnotes_data.length !== 0) {
+                    return sessionSet('Context_hook', { allnotes_data: remove })
+                }
+            }
+        }, 700);
+    }, [allnotes])
 
     useEffect(() => {
+        let a = sessionGet('Context_hook')
+        if (a?.hasOwnProperty('removeData')) {
+            return SetAllNotes(a.allnotes_data)
+        }
         fetchNotes()
+
     }, [userData])
 
     useEffect(() => {
         let notesCopy = allnotes
-        if (allnotes) {
+        if (allnotes.length !== 0) {
             notesCopy.sort((a, b) => {
                 let ta = a.title.toLowerCase(),
                     tb = b.title.toLowerCase(),
@@ -162,44 +201,54 @@ const allnotes = () => {
                 </section>
             </header>
             <main className={style.notes_section}>
-                <div className={style.all_notes}>
-                    {(allnotes) ? allnotes.map((data, index) => {
-                        return (
-                            (data.type == 'note') ?
-                                <Link href={`/note/${data.id}`} key={crypto.randomUUID()} >
-                                    <div className={style.note + " " + color[data.color]}>
-                                        <div className={style.note_title}>
-                                            <p>{data.title}</p>
+                <TransitionGroup className={style.all_notes}>
+                    {allnotes.map((data, index) => (
+                        <Transition key={data.id} timeout={400}>
+                            {state => (
+                                (data.type == 'note') ?
+                                    <Link href={`/note/${data.id}`}  >
+                                        <div
+                                            id={data.id}
+                                            style={{
+                                                ...transitionRemove[state],
+                                            }} className={style.note + " " + color[data.color]}>
+                                            <div className={style.note_title}>
+                                                <p>{data.title}</p>
+                                            </div>
+                                            <p className={style.note_preview}>
+                                                {data.content}
+                                            </p>
                                         </div>
-                                        <p className={style.note_preview}>
-                                            {data.content}
-                                        </p>
-                                    </div>
-                                </Link> :
-                                <Link href={`/todo/${data.id}`} key={crypto.randomUUID()} >
-                                    <div className={style.note + " " + color[data.color]}>
-                                        <div className={`${style.note_title} d-flex justify-content-between`}>
-                                            <p>{data.title}</p>
-                                            <Image src={'/note-assets/check-icon.png'}
-                                                width={20}
-                                                height={20}
-                                            ></Image>
+                                    </Link> :
+                                    <Link href={`/todo/${data.id}`}  >
+                                        <div
+                                            id={data.id}
+                                            style={{
+                                                ...transitionRemove[state],
+                                            }} className={style.note + " " + color[data.color]}>
+                                            <div className={`${style.note_title} d-flex justify-content-between`}>
+                                                <p>{data.title}</p>
+                                                <Image src={'/note-assets/check-icon.png'}
+                                                    width={20}
+                                                    height={20}
+                                                ></Image>
+                                            </div>
+                                            {data.content.map((list, index) => (
+                                                (list.checked) ?
+                                                    <p key={index} className={style.note_preview} style={{ color: '#525252' }}>
+                                                        <del>{list.todo}</del>
+                                                    </p>
+                                                    : <p key={index} className={style.note_preview}>
+                                                        {list.todo}
+                                                    </p>
+                                            ))}
                                         </div>
-                                        {data.content.map((list, index) => (
-                                            (list.checked) ?
-                                                <p key={index} className={style.note_preview} style={{ color: '#525252' }}>
-                                                    <del>{list.todo}</del>
-                                                </p>
-                                                : <p key={index} className={style.note_preview}>
-                                                    {list.todo}
-                                                </p>
-                                        ))}
-                                    </div>
-                                </Link>
-                        )
-                    }) : null
+                                    </Link>
+                            )}
+                        </Transition>
+                    ))
                     }
-                </div>
+                </TransitionGroup>
             </main>
 
 

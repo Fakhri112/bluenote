@@ -7,9 +7,8 @@ import Authpage from '../components/login-page/Authpage'
 import { useDataContext } from '../src/hook/StateContext'
 import Delay from '../components/other/Delay'
 import Image from "next/image"
-import arraySort from 'array-sort'
 const axios = require('axios');
-const MAX_INDEX_NOTE = 12
+const MAX_INDEX_NOTE = 9
 
 const mainpage = () => {
     const [allnotes, SetAllNotes] = useState()
@@ -39,8 +38,11 @@ const mainpage = () => {
                 uid: userData.user.uid
             })
             let dataCombined = responseTodos.data.concat(responseNotes.data)
-            let sortData = arraySort(dataCombined, 'date_modified._seconds', { reverse: true })
-            return SetAllNotes(sortData.slice(0, MAX_INDEX_NOTE))
+            dataCombined.sort((a, b) => {
+                return b['date_modified']._seconds - a['date_modified']._seconds
+
+            })
+            return SetAllNotes(dataCombined.slice(0, MAX_INDEX_NOTE))
         }
     }
 

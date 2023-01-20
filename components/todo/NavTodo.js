@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import style from '../style/notepad.module.css'
-import arraySort from 'array-sort';
 
 
 const NavTodo = (props) => {
@@ -22,7 +21,7 @@ const NavTodo = (props) => {
         })
 
         props.updateData(items)
-        return props.triggerTop(trigger)
+        return props.triggerFocus(trigger)
     }
 
     const sortTodo = (status) => {
@@ -30,10 +29,19 @@ const NavTodo = (props) => {
         SetTrigger(trigger + 1)
         const items = Array.from(props.todoData)
         if (status) {
-            return props.updateData(arraySort(items, 'checked', { reverse: true }))
+            items.sort((a, b) => {
+                return b['checked'] - a['checked']
+
+            })
+            return props.updateData(items)
         }
-        props.tgrTodoData(trigger + 1)
-        return props.updateData(arraySort(items, 'todo'))
+        items.sort((a, b) => {
+            let ta = a.todo.toLowerCase(),
+                tb = b.todo.toLowerCase()
+            if (ta < tb) return -1;
+            if (ta > tb) return 1;
+        })
+        return props.updateData(items)
     }
 
     const deleteCheckedItems = () => {
@@ -55,7 +63,7 @@ const NavTodo = (props) => {
                 obj.checked = false;
             }
         }
-        props.tgrTodoData(trigger + 1)
+        // props.tgrTodoData(trigger + 1)
         return props.updateData(items)
     }
 

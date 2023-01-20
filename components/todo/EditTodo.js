@@ -6,11 +6,20 @@ import TextareaAutosize from 'react-textarea-autosize';
 const TIMEOUT = 300;
 
 const editModeDeleteTransition = {
+    entering: {
+
+    },
+    entered: {
+
+    },
     exiting: {
         transition: `opacity ${TIMEOUT}ms, transform ${TIMEOUT}ms, margin-bottom ${TIMEOUT}ms`,
         marginBottom: '-67px',
         opacity: 0,
         transform: `translateY(-50px)`,
+    },
+    exited: {
+
     }
 }
 
@@ -62,14 +71,14 @@ const EditTodo = (props) => {
     }
 
     useEffect(() => {
-
-        if (props.indexFocus !== 0 || props.todoData.length == 0) return
+        console.log('2323')
+        if (props.titleFocus || props.todoData.length == 0) return
         setTimeout(() => {
             todoRef.current[0].focus()
         }, 100)
 
 
-    }, [props.triggerTop])
+    }, [props.triggerFocus])
 
     useEffect(() => {
         if (props.indexFocus) {
@@ -79,7 +88,9 @@ const EditTodo = (props) => {
         }
     }, [props.indexFocus])
 
-
+    // useEffect(() => {
+    //     console.log(props.indexFocus)
+    // })
 
 
 
@@ -89,9 +100,9 @@ const EditTodo = (props) => {
                 <Droppable droppableId="hello">
                     {(provided) => (
                         <div className={style.todo} {...provided.droppableProps} ref={provided.innerRef}>
-                            <TransitionGroup in={true} className="todo-list">
+                            <TransitionGroup className="todo-list">
                                 {props.todoData.map((data, index) => (
-                                    <Transition in={true} key={data.id} timeout={{ enter: TIMEOUT, exit: TIMEOUT }}>
+                                    <Transition key={data.id} timeout={TIMEOUT}>
                                         {status => (
                                             <Draggable key={data.id} draggableId={data.id} index={index} disableInteractiveElementBlocking={true}>
                                                 {(provided) => (

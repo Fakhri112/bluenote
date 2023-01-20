@@ -239,12 +239,17 @@ const NoteComponent = (props) => {
                 sessionSet('Context_hook', { trash_data: trash, removeData: noteID })
                 return route.back()
             }
+            if (sessionGet('Context_hook')?.allnotes_data) {
+                let allnotes = sessionGet('Context_hook').allnotes_data
+                sessionSet('Context_hook', { allnotes_data: allnotes, removeData: noteID })
+                return route.back()
+            }
 
-            timer = setTimeout(() => {
-                setSavePopUp({ ...savePopUp, success: false })
-                route.back()
-            }, 2000)
-            return () => clearTimeout(timer);
+            // timer = setTimeout(() => {
+            //     setSavePopUp({ ...savePopUp, success: false })
+            //     route.back()
+            // }, 2000)
+            // return () => clearTimeout(timer);
         }
     }, [savePopUp])
 

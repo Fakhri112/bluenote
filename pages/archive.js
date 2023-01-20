@@ -34,6 +34,7 @@ const archive = () => {
     const [allnotes, SetAllNotes] = useState([])
     const { userData } = useDataContext()
     const [sortlistActive, SetSortlistActive] = useState()
+
     const fetchNotes = async () => {
         const response = await axios.post('/api/fetchdatas?type=archives', {
             uid: userData.user.uid
@@ -121,7 +122,6 @@ const archive = () => {
                 }
 
             })
-            console.log(notesCopy)
             return SetAllNotes([...notesCopy])
         }
 
