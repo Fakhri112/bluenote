@@ -40,7 +40,7 @@ export const NoteSaved = (props) => {
         if (true) {
             setTimeout(() => {
                 setShow(false)
-            }, 3000);
+            }, 2500);
         }
     }, [])
 

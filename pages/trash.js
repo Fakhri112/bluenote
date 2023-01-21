@@ -10,6 +10,7 @@ import { sessionGet, sessionSet } from '../src/function/lib'
 import { Modal, Button } from 'react-bootstrap'
 import { deleteDoc, doc } from 'firebase/firestore'
 import { db } from '../src/config/firebase.config'
+import ModalDialog from '../components/popup/ModalDialog'
 import { NoteSaved } from '../components/popup/NoteSaved'
 
 const axios = require('axios');
@@ -44,6 +45,7 @@ const trash = () => {
         deleting: false,
         deleted: false,
     })
+    const [confEmpty, SetConfEmpty] = useState()
 
     const fetchNotes = async () => {
         if (userData) {
@@ -55,21 +57,23 @@ const trash = () => {
         }
     }
 
-    const closeDialog = () => {
-        SetDeleteAll(false)
-    }
 
-    const emptyTrash = () => {
+    useEffect(() => {
         SetDeleteAll(false)
+        if (!confEmpty) return
         if (allnotes.length == 0) return
         setSavePopUp({ ...savePopUp, deleting: true })
-        allnotes.forEach(async (el) => {
-            await deleteDoc(doc(db, 'trashes', el.id))
-        })
-        sessionSet('Context_hook', {})
-        setSavePopUp({ deleted: true, deleting: false })
-        return SetAllNotes([])
-    }
+        for (let i = 0; i <= allnotes.length; i++) {
+            if (i == allnotes.length) {
+                sessionSet('Context_hook', {})
+                setSavePopUp({ deleted: true, deleting: false })
+                SetAllNotes([])
+                break
+            }
+            deleteDoc(doc(db, 'trashes', allnotes[i].id))
+        }
+    }, [confEmpty])
+
 
     useEffect(() => {
         let a = sessionGet('Context_hook')
@@ -78,6 +82,7 @@ const trash = () => {
         }
         fetchNotes()
     }, [userData])
+
 
     useEffect(() => {
         let allnotes_copy = allnotes
@@ -101,27 +106,21 @@ const trash = () => {
         if (savePopUp.deleted) {
             timer = setTimeout(() => {
                 setSavePopUp({ ...savePopUp, deleted: false })
-            }, 2000)
+            }, 2800)
             return () => clearTimeout(timer);
         }
     }, [savePopUp])
 
     return (
         <div>
-            <Modal show={deleteAll} onHide={closeDialog}>
-                <Modal.Header closeButton>
-                    Empty Trash Can
-                </Modal.Header>
-                <Modal.Body>Are you sure you want to delete all notes in the trash can?</Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={closeDialog}>
-                        Close
-                    </Button>
-                    <Button variant="primary" onClick={emptyTrash}>
-                        OK
-                    </Button>
-                </Modal.Footer>
-            </Modal>
+            <ModalDialog
+                show={deleteAll}
+                closeDialog={status => SetDeleteAll(status)}
+                header={'Empty Trash Can'}
+                body={'Are you sure you want to delete all notes in the trash can?'}
+                confirm={'emptyTrash'}
+                emptyTrash={bool => SetConfEmpty(bool)}
+            />
             <header>
                 <section className={header.menu}>
                     <div className={header.back}>

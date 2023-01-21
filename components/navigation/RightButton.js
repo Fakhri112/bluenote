@@ -5,8 +5,8 @@ import style from '../style/notepad.module.css'
 import color from '../style/colornote.module.css'
 import { getColor } from '../../src/function/lib';
 import folder_up from '../../public/note-assets/folder-up.png';
+import ModalDialog from '../popup/ModalDialog';
 import Image from 'next/image';
-import { Toast } from 'react-bootstrap';
 
 
 
@@ -28,85 +28,62 @@ const RightButton = (props) => {
         if (toTrash || toArchive || trash.restore || trash.delete_perm) return setShow(true)
     }, [toArchive, toTrash, props.currentColor, trash])
 
-    const closeDialog = () => {
-        setShow(false)
+    useEffect(() => {
+        if (show == true) return
         setTimeout(() => {
             SetToTrash(false)
             SetToArchive(false)
             SetTrash({ restore: false, delete_perm: false })
         }, 300);
-    }
+    }, [show])
 
     return (
         <>
             {(emptyNote) ?
-                <Modal show={show} onHide={closeDialog}>
-                    <Modal.Header closeButton>
-                    </Modal.Header>
-                    <Modal.Body>Unable to move empty note</Modal.Body>
-                    <Modal.Footer>
-                        <Button variant="secondary" onMouseDown={closeDialog}>
-                            Close
-                        </Button>
-                    </Modal.Footer>
-                </Modal>
-                : (toArchive) ? <Modal show={show} onHide={closeDialog}>
-                    <Modal.Header closeButton>
-                        Archive
-                    </Modal.Header>
-                    <Modal.Body>Are you sure you want to archive the note?</Modal.Body>
-                    <Modal.Footer>
-                        <Button variant="secondary" onClick={closeDialog}>
-                            Close
-                        </Button>
-                        <Button variant="primary" onClick={() => { props.archiveConf(true), setShow(false) }}>
-                            OK
-                        </Button>
-                    </Modal.Footer>
-                </Modal>
-                    : (toTrash) ? <Modal show={show} onHide={closeDialog}>
-                        <Modal.Header closeButton>
-                            Delete
-                        </Modal.Header>
-                        <Modal.Body>Are you sure you want to send the note to trash can?</Modal.Body>
-                        <Modal.Footer>
-                            <Button variant="secondary" onClick={closeDialog}>
-                                Close
-                            </Button>
-                            <Button variant="primary" onClick={() => { props.trashConf(true), setShow(false) }}>
-                                OK
-                            </Button>
-                        </Modal.Footer>
-                    </Modal>
-                        : (trash.restore) ? <Modal show={show} onHide={closeDialog}>
-                            <Modal.Header closeButton>
-                                Restore
-                            </Modal.Header>
-                            <Modal.Body>Do you want to restore note?</Modal.Body>
-                            <Modal.Footer>
-                                <Button variant="secondary" onClick={closeDialog}>
-                                    Close
-                                </Button>
-                                <Button variant="primary" onClick={() => { props.untrash(true), setShow(false) }}>
-                                    OK
-                                </Button>
-                            </Modal.Footer>
-                        </Modal>
-                            : (trash.delete_perm) ? <Modal show={show} onHide={closeDialog}>
-                                <Modal.Header closeButton>
-                                    Delete Permanently
-                                </Modal.Header>
-                                <Modal.Body>Are you sure you want to delete the note permanently?</Modal.Body>
-                                <Modal.Footer>
-                                    <Button variant="secondary" onClick={closeDialog}>
-                                        Close
-                                    </Button>
-                                    <Button variant="primary" onClick={() => { props.deletePerm(true), setShow(false) }}>
-                                        OK
-                                    </Button>
-                                </Modal.Footer>
-                            </Modal>
-                                : <div></div>
+                <ModalDialog
+                    show={show}
+                    closeDialog={status => setShow(status)}
+                    header={'Alert'}
+                    body={'Unable to move the empty note'}
+                    emptyNote={emptyNote}
+                />
+                : (toArchive) ?
+                    <ModalDialog
+                        show={show}
+                        closeDialog={status => setShow(status)}
+                        header={'Archive'}
+                        body={'Are you sure you want to archive the note?'}
+                        confirm={'archiveConf'}
+                        archiveConf={bool => props.archiveConf(bool)}
+                    />
+                    : (toTrash) ?
+                        <ModalDialog
+                            show={show}
+                            closeDialog={status => setShow(status)}
+                            header={'Delete'}
+                            body={'Are you sure you want to send the note to trash can?'}
+                            confirm={'trashConf'}
+                            trashConf={bool => props.trashConf(bool)}
+                        />
+                        : (trash.restore) ?
+                            <ModalDialog
+                                show={show}
+                                closeDialog={status => setShow(status)}
+                                header={'Restore'}
+                                body={'Do you want to restore note?'}
+                                confirm={'untrash'}
+                                untrash={bool => props.untrash(bool)}
+                            />
+                            : (trash.delete_perm) ?
+                                <ModalDialog
+                                    show={show}
+                                    closeDialog={status => setShow(status)}
+                                    header={'Delete Permanently'}
+                                    body={'Are you sure you want to delete the note permanently?'}
+                                    confirm={'deletePerm'}
+                                    deletePerm={bool => props.deletePerm(bool)}
+                                />
+                                : null
             }
             <section className={`${style.option} ${style.left_right_column}`}>
                 {(props.isTrash) ?
