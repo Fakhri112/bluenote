@@ -7,35 +7,13 @@ import style from '../components/style/trash.module.css'
 import { useDataContext } from '../src/hook/StateContext'
 import { Transition, TransitionGroup } from 'react-transition-group'
 import { sessionGet, sessionSet } from '../src/function/lib'
-import { Modal, Button } from 'react-bootstrap'
 import { deleteDoc, doc } from 'firebase/firestore'
 import { db } from '../src/config/firebase.config'
 import ModalDialog from '../components/popup/ModalDialog'
 import { NoteSaved } from '../components/popup/NoteSaved'
-
+import { transitionRemove } from '../src/function/transition'
 const axios = require('axios');
-const TIMEOUT = 300
 
-const transitionRemove = {
-    entering: {
-        transform: 'translateX(40px)',
-        opacity: 0
-    },
-    entered: {
-        transform: 'translateX(0px)',
-        opacity: 1,
-        transition: `opacity ${TIMEOUT}ms, transform ${TIMEOUT}ms`,
-    },
-    exiting: {
-        transition: `opacity ${TIMEOUT}ms, transform ${TIMEOUT}ms, margin-bottom ${TIMEOUT}ms`,
-        marginBottom: '-27vh',
-        opacity: 0,
-        transform: `translateY(-50px)`,
-    },
-    exited: {
-        opacity: 0
-    }
-}
 
 const trash = () => {
     const [allnotes, SetAllNotes] = useState([])
@@ -151,7 +129,7 @@ const trash = () => {
                                             <div
                                                 id={data.id}
                                                 style={{
-                                                    ...transitionRemove[state],
+                                                    ...transitionRemove()[state],
                                                 }} className={style.note + " " + color[data.color]}>
                                                 <div className={`${style.note_title} d-flex justify-content-between`}>
                                                     <p>{data.title}</p>
@@ -168,7 +146,7 @@ const trash = () => {
                                             <div
                                                 id={data.id}
                                                 style={{
-                                                    ...transitionRemove[state],
+                                                    ...transitionRemove()[state],
                                                 }} className={style.note + " " + color[data.color]}>
                                                 <div className={`${style.note_title} d-flex justify-content-between`}>
                                                     <p>{data.title}</p>
@@ -192,43 +170,6 @@ const trash = () => {
                         ))
                         }
                     </TransitionGroup>
-                    {/* {(allnotes) ? allnotes.map((data, index) => {
-                        return (
-                            (data.type == 'note') ?
-                                <Link href={`/trash/${data.id}`} key={crypto.randomUUID()} >
-                                    <div className={style.note + " " + color[data.color]}>
-                                        <div className={`${style.note_title} d-flex justify-content-between`}>
-                                            <p>{data.title}</p>
-                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
-                                                <path d="M135.2 17.69C140.6 6.848 151.7 0 163.8 0H284.2C296.3 0 307.4 6.848 312.8 17.69L320 32H416C433.7 32 448 46.33 448 64C448 81.67 433.7 96 416 96H32C14.33 96 0 81.67 0 64C0 46.33 14.33 32 32 32H128L135.2 17.69zM394.8 466.1C393.2 492.3 372.3 512 346.9 512H101.1C75.75 512 54.77 492.3 53.19 466.1L31.1 128H416L394.8 466.1z" />
-                                            </svg>
-                                        </div>
-                                        <p className={style.note_preview}>
-                                            {data.content}
-                                        </p>
-                                    </div>
-                                </Link> :
-                                <Link href={`/trash/${data.id}`} key={crypto.randomUUID()} >
-                                    <div className={style.note + " " + color[data.color]}>
-                                        <div className={`${style.note_title} d-flex justify-content-between`}>
-                                            <p>{data.title}</p>
-                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
-                                                <path d="M135.2 17.69C140.6 6.848 151.7 0 163.8 0H284.2C296.3 0 307.4 6.848 312.8 17.69L320 32H416C433.7 32 448 46.33 448 64C448 81.67 433.7 96 416 96H32C14.33 96 0 81.67 0 64C0 46.33 14.33 32 32 32H128L135.2 17.69zM394.8 466.1C393.2 492.3 372.3 512 346.9 512H101.1C75.75 512 54.77 492.3 53.19 466.1L31.1 128H416L394.8 466.1z" />
-                                            </svg>
-                                        </div>
-                                        {data.content.map((list, index) => (
-                                            (list.checked) ?
-                                                <p key={index} className={style.note_preview} style={{ color: '#525252' }}>
-                                                    <del>{list.todo}</del>
-                                                </p>
-                                                : <p key={index} className={style.note_preview}>
-                                                    {list.todo}
-                                                </p>
-                                        ))}
-                                    </div>
-                                </Link>
-                        )
-                    }) : null} */}
                 </div>
             </main>
 

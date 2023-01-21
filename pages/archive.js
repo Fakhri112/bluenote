@@ -6,29 +6,8 @@ import { useDataContext } from '../src/hook/StateContext'
 import { getContentChecklist, sessionGet, sessionSet } from '../src/function/lib'
 import { Transition, TransitionGroup } from 'react-transition-group'
 import Image from "next/image"
+import { transitionRemove } from '../src/function/transition'
 const axios = require('axios');
-const TIMEOUT = 300
-
-const transitionRemove = {
-    entering: {
-        transform: 'translateX(40px)',
-        opacity: 0
-    },
-    entered: {
-        transform: 'translateX(0px)',
-        opacity: 1,
-        transition: `opacity ${TIMEOUT}ms, transform ${TIMEOUT}ms`,
-    },
-    exiting: {
-        transition: `opacity ${TIMEOUT}ms, transform ${TIMEOUT}ms, margin-bottom ${TIMEOUT}ms`,
-        marginBottom: '-27vh',
-        opacity: 0,
-        transform: `translateY(-50px)`,
-    },
-    exited: {
-        opacity: 0
-    }
-}
 
 const archive = () => {
     const [allnotes, SetAllNotes] = useState([])
@@ -190,7 +169,7 @@ const archive = () => {
                                         <div
                                             id={data.id}
                                             style={{
-                                                ...transitionRemove[state],
+                                                ...transitionRemove()[state],
                                             }} className={style.note + " " + color[data.color]}>
                                             <div className={style.note_title}>
                                                 <p>{data.title}</p>
@@ -204,7 +183,7 @@ const archive = () => {
                                         <div
                                             id={data.id}
                                             style={{
-                                                ...transitionRemove[state],
+                                                ...transitionRemove()[state],
                                             }} className={style.note + " " + color[data.color]}>
                                             <div className={`${style.note_title} d-flex justify-content-between`}>
                                                 <p>{data.title}</p>
