@@ -29,10 +29,12 @@
     height: 100%;
     max-width: 80vw;
     min-width: 200px;
-    padding: 10px;
+    padding: 1.8vmin;
     overflow: auto;
 
 }
+
+.notepad:active {}
 
 .notepad>.note_title {
     display: flex;
@@ -46,9 +48,9 @@
     ;
     border-width: 0;
     width: 100%;
-    height: 50px;
-    font-size: 40px;
+    font-size: 6.4vmin;
     font-weight: 500;
+    height: 8vh;
 }
 
 .notepad>.note_title>.title_strikethrough {
@@ -62,10 +64,11 @@
     border: 1px solid rgb(206, 206, 206);
     background-color: rgba(255, 255, 255, 0.8);
     border-radius: 0;
-    outline: none !important;
+    outline: none;
     width: 100%;
-    height: 50px;
-    font-size: 40px;
+    font-size: 6.4vmin;
+    font-weight: 500;
+    height: 8vh;
     font-weight: 500;
 }
 
@@ -80,7 +83,7 @@
     background-color: white;
     border: 0px;
     padding: 0%;
-    width: 15px;
+    width: 1.098vw !important;
     margin-left: -40px;
 
 }
@@ -93,6 +96,7 @@
     background-color: rgba(0, 0, 0, 0.0);
     ;
     border-width: 0;
+    font-size: 2.5vmin;
 }
 
 .notepad>textarea:focus {
@@ -127,7 +131,7 @@
 .navTodo>div>a,
 .addTodo {
     cursor: pointer;
-    font-size: 12px;
+    font-size: 1.9vmin;
 }
 
 .navTodo>div>a {
@@ -145,15 +149,16 @@
 }
 
 .dropdownNavTodo>ul>li {
-    padding-top: 4px;
-    padding-bottom: 4px;
+    padding-top: 0.640vh;
+    padding-bottom: 0.640vh;
 }
 
 .dropdownNavTodo>ul>li>a {
     cursor: pointer;
-    font-size: 12px;
+    font-size: 1.9vmin;
     margin-bottom: 8px;
-    margin-left: 15px;
+    margin-left: 1.098vw;
+    margin-right: 0.48vw;
 }
 
 .dropdownNavTodo>ul>li:hover {
@@ -165,7 +170,7 @@
 /* todo main content */
 
 .todoList>label {
-    font-size: 20px;
+    font-size: 3vmin;
     width: 80%;
 }
 
@@ -175,8 +180,8 @@
 }
 
 .checkbox {
-    width: 20px;
-    height: 20px;
+    width: 1.464vw;
+    height: 3.2vh;
     margin-right: 15px;
 }
 
@@ -190,6 +195,7 @@
 
 .editTodoList>div {
     display: flex;
+    align-items: center;
 }
 
 .editTodoList>div>button {
@@ -207,7 +213,7 @@
     margin: 0;
     border: unset;
     width: 100%;
-    font-size: 20px;
+    font-size: 3vmin;
     resize: none;
     overflow: hidden;
 }
@@ -219,7 +225,7 @@
     border-radius: 0;
     outline: none !important;
     width: 100%;
-    font-size: 20px;
+    font-size: 3vmin;
     resize: none;
     overflow: hidden;
 }
@@ -239,6 +245,11 @@
     text-align: center;
 }
 
+.option>.color_option,
+.option>.archive_trash {
+    font-size: 2.5vmin;
+}
+
 
 .option>.archive_trash {
     display: flex;
@@ -247,24 +258,29 @@
 }
 
 .option>div>button>svg {
+    width: 1.56vw;
     margin-top: -4px;
 }
 
 .option>.archive_trash>button {
     padding: 0%;
-    width: 40px;
-    height: 40px;
+    width: 6.4vh;
+    height: 6.4vh;
     border: 2px solid grey;
     border-radius: 50px;
+}
+
+.option>.archive_trash>a {
+    font-size: 2.5vmin;
 }
 
 .option>.archive_trash>button:hover {
     background-color: white;
 }
 
-.option>div>button>svg {
-    width: 20px;
-}
+/* .option>div>button>svg {
+    width: 3vmin;
+} */
 
 .option>.deleteBtn_restore {
     font-size: 2.4vmin;
@@ -291,7 +307,7 @@
 
 .flex_menu {
     background-color: rgb(255, 255, 255);
-    height: 135px;
+    height: 21.600vh;
     padding: 0%;
     display: flex !important;
     flex-wrap: wrap !important;
@@ -299,6 +315,7 @@
     align-items: center;
     justify-content: center;
     list-style: none;
+    width: 22.6vh;
 }
 
 .container_color_option {
@@ -315,8 +332,9 @@
     position: fixed;
     left: 50%;
     transform: translateX(-50%);
-    width: 270px;
-    height: 38px;
+    width: 19.766vw;
+    height: 6.080vh;
+    font-size: 2.5vmin;
     background-color: rgba(51, 46, 46, 255);
     display: flex;
     justify-content: center;

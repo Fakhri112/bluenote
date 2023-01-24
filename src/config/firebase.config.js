@@ -14,11 +14,3 @@ const firebaseConfig = {
 
 export const app = initializeApp(firebaseConfig)
 export const db = getFirestore(app)
-
-
-// try {
-//     initializeApp(firebaseConfig)
-//     getAnalytics()
-// } catch (error) {
-
-// }

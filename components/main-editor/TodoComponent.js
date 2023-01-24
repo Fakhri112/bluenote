@@ -115,7 +115,8 @@ const TodoComponent = (props) => {
     const handleUpdate = async () => {
         if (!saveTodo || (inputTitle.length == 0 && todoData.length == 0)) return SetSaveTodo(false)
         setSavePopUp({ ...savePopUp, saving: true })
-        let todoEdit = doc(db, 'todos', todoID)
+        let collectionName = (props.isArchive) ? 'archives' : 'todos'
+        let todoEdit = doc(db, collectionName, todoID)
         await updateDoc(todoEdit, {
             uid: userData.user.uid,
             type: "todo",
@@ -296,7 +297,6 @@ const TodoComponent = (props) => {
                         isTrash={props.isTrash}
                         changeEditMode={value => SetEditMode(value)}
                         todoData={todoData}
-                        // updateData={data => SetTodoData(data)}
                         triggerFocus={prop => SetTriggerFocus(prop)}
                         tgrTodoData={prop => SetTgrTodoData(prop)}
                         updateData={data => SetTodoData([...data])}

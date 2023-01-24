@@ -1,147 +1,153 @@
-.yellow{
-    border-top: 3px solid #fcd404;
-    background-color: rgba(255,247,175,255);;
+.yellow {
+    border-top: 0.5vmin solid #fcd404;
+    background-color: rgba(255, 247, 175, 255);
+    ;
 }
 
-.blue{
-    border-top: 3px solid #0474cc;
+.blue {
+    border-top: 0.5vmin solid #0474cc;
     background-color: #e8e8ff;
 }
 
-.orange{
-    border-top: 3px solid #fba404;
+.orange {
+    border-top: 0.5vmin solid #fba404;
     background-color: #ffebd7;
 }
 
-.green{
-    border-top: 3px solid #2cb434;
+.green {
+    border-top: 0.5vmin solid #2cb434;
     background-color: #e8ffe8;
 }
 
-.red{
-    border-top: 3px solid #f42c34;
+.red {
+    border-top: 0.5vmin solid #f42c34;
     background-color: #ffe8e8;
 }
 
-.purple{
-        border-top: 3px solid #bc34bc;
+.purple {
+    border-top: 0.5vmin solid #bc34bc;
     background-color: #ffe8e8;
 }
 
-.white{
-    border-top: 3px solid #c0bcbc;
+.white {
+    border-top: 0.5vmin solid #c0bcbc;
     background-color: #ffffff;
 }
 
-.grey{
-    border-top: 3px solid #c0bcbc;
+.grey {
+    border-top: 0.5vmin solid #c0bcbc;
     background-color: #f8f8f8
 }
 
-.black{
-    border-top: 3px solid #343434;
+.black {
+    border-top: 0.5vmin solid #343434;
     background-color: #cccccc
 }
 
-.red_option{
+.red_option {
     background-color: #f32837;
-    width: 40px;
-    height: 40px;
+    width: 6.4vh;
+    height: 6.4vh;
     border: 1px solid gainsboro;
     border-width: thin;
 }
 
-.orange_option{
+.orange_option {
     background-color: #ffa200;
-    width: 40px;
-    height: 40px;
+    width: 6.4vh;
+    height: 6.4vh;
     border: 1px solid gainsboro;
     border-width: thin;
 }
 
-.yellow_option{
+.yellow_option {
     background-color: #ffff00;
-    width: 40px;
-    height: 40px;
+    width: 6.4vh;
+    height: 6.4vh;
     border: 1px solid gainsboro;
     border-width: thin;
 }
 
-.green_option{
+.green_option {
     background-color: #2eb135;
-    width: 40px;
-    height: 40px;
-    border: 1px solid gainsboro;
-    border-width: thin;
-}
-.blue_option{
-    background-color: #0070cf;
-    width: 40px;
-    height: 40px;
-    border: 1px solid gainsboro;
-    border-width: thin;
-}
-.purple_option{
-    background-color: #bc34ba;
-    width: 40px;
-    height: 40px;
-    border: 1px solid gainsboro;
-    border-width: thin;
-}
-.black_option{
-    background-color: #000000;
-    width: 40px;
-    height: 40px;
-    border: 1px solid gainsboro;
-    border-width: thin;
-}
-.grey_option{
-    background-color: #888888;
-    width: 40px;
-    height: 40px;
-    border: 1px solid gainsboro;
-    border-width: thin;
-}
-.white_option{
-    background-color: #ffffff;
-    width: 40px;
-    height: 40px;
+    width: 6.4vh;
+    height: 6.4vh;
     border: 1px solid gainsboro;
     border-width: thin;
 }
 
-.blue_notepad{
+.blue_option {
+    background-color: #0070cf;
+    width: 6.4vh;
+    height: 6.4vh;
+    border: 1px solid gainsboro;
+    border-width: thin;
+}
+
+.purple_option {
+    background-color: #bc34ba;
+    width: 6.4vh;
+    height: 6.4vh;
+    border: 1px solid gainsboro;
+    border-width: thin;
+}
+
+.black_option {
+    background-color: #000000;
+    width: 6.4vh;
+    height: 6.4vh;
+    border: 1px solid gainsboro;
+    border-width: thin;
+}
+
+.grey_option {
+    background-color: #888888;
+    width: 6.4vh;
+    height: 6.4vh;
+    border: 1px solid gainsboro;
+    border-width: thin;
+}
+
+.white_option {
+    background-color: #ffffff;
+    width: 6.4vh;
+    height: 6.4vh;
+    border: 1px solid gainsboro;
+    border-width: thin;
+}
+
+.blue_notepad {
     background-color: #E8E8FF;
 }
 
-.yellow_notepad{
+.yellow_notepad {
     background-color: #fff7af;
 }
 
-.green_notepad{
+.green_notepad {
     background-color: #E8FFE8;
 }
 
-.red_notepad{
+.red_notepad {
     background-color: #fcdada;
 }
 
-.black_notepad{
+.black_notepad {
     background-color: #CCCCCC;
 }
 
-.purple_notepad{
+.purple_notepad {
     background-color: #FFE8E8;
 }
 
-.orange_notepad{
+.orange_notepad {
     background-color: #FFEBD7;
 }
 
-.grey_notepad{
+.grey_notepad {
     background-color: #F8F8F8;
 }
 
-.white_notepad{
+.white_notepad {
     background-color: #FFFFFF;
 }

@@ -1,5 +1,4 @@
 .main {
-
     display: flex;
     justify-content: space-evenly;
     margin-bottom: 7px;
@@ -23,12 +22,15 @@
 
     font-family: 'Poppins', sans-serif;
     font-style: italic;
+    font-size: 2vmin;
 }
 
 .title>h1 {
 
     font-family: 'Kdam Thmor Pro', sans-serif;
-    font-size: 28px;
+    font-size: 4vmin;
+    margin-top: unset !important;
+    margin-bottom: 0 !important;
 
 }
 
@@ -42,14 +44,20 @@
     border: unset;
 }
 
-.user>ul>li:first-child {}
-
 .user>button:hover,
 .user>button:active {
     background-color: transparent !important;
 }
 
+.dropdown {
+    font-size: 2.5vmin;
+    min-width: 28vh !important;
+}
 
+/* left and right panel font size  */
+.button_label {
+    font-size: 2.5vmin
+}
 
 
 
@@ -67,9 +75,9 @@
 .add_block {
     min-width: 100px;
     min-height: 105px;
-    width: 155px;
-    height: 160px;
-    border: 2px solid grey;
+    width: 24.6vh;
+    height: 25.6vh;
+    border: 1px solid rgb(155, 155, 155);
     border-style: dashed;
     display: flex;
     flex-direction: column;
@@ -83,30 +91,30 @@
 }
 
 .add_block:hover {
-    border: 2px solid grey
+    outline: 0.4vmin solid rgb(134, 134, 134);
+    outline-offset: 0.3vmin;
 }
 
 /* main note section */
 
 .notes_section {
-    width: 490px;
+    width: 77.8vh;
     animation: slide-left 0.3s 0.2s both;
 }
 
 .notes {
-    width: 155px;
-    height: 160px;
+    width: 24.6vh;
+    height: 25.6vh;
     overflow-y: hidden;
     padding: 0 4px;
     animation: slide-left 0.3s 0.2s both;
 }
 
 .notes:hover {
-    height: 160px;
-    padding: 0px 2px;
-    border-left: 2px solid grey;
-    border-right: 2px solid grey;
-    border-bottom: 2px solid grey;
+    cursor: pointer;
+    position: relative;
+    outline: 0.32vmin solid rgb(163, 163, 163);
+    outline-offset: 0.19vmin;
 }
 
 
@@ -132,7 +140,7 @@
     padding: 0%;
     font-family: 'Open Sans', sans-serif;
     font-weight: 600;
-    font-size: 13px;
+    font-size: 2.1vmin;
 }
 
 .note_preview {
@@ -146,10 +154,11 @@
     align-content: flex-start;
     overflow: auto;
     width: 100%;
-    gap: 10px;
-    height: 520px;
+    gap: 1.35vmin;
+    height: 82.6vh;
     flex-direction: column;
     flex-wrap: wrap;
+    padding: 0.3vmax;
 
 }
 
@@ -158,18 +167,18 @@
 .more {
     animation: slide-left 0.3s both;
     min-width: 100px;
-    width: 200px;
+    width: 14.64vw;
     z-index: 0;
 }
 
 
 .more_block:hover {
-    padding: 0;
-    border: 2px solid rgb(255, 255, 255);
+    outline: 0.4vmin solid rgb(134, 134, 134);
+    outline-offset: 0.3vmin;
 }
 
 .more_block {
-    height: 130px;
+    height: 20.8vh;
     background-color: #555555;
     display: flex;
     justify-content: center;

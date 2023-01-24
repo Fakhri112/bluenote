@@ -76,9 +76,11 @@ const NoteComponent = (props) => {
     }
 
     const handleContent = (e) => {
-        SetContent(e.target.value)
+        let value = e.target.value
+        SetContent(value)
         if (autoTitle) {
-            return SetInputTitle(e.target.value)
+            if (value.length > 40) return SetInputTitle(value.substring(0, 40))
+            return SetInputTitle(value)
         }
         return SetAutoTitle(false)
     }
@@ -112,7 +114,8 @@ const NoteComponent = (props) => {
         if (!save || (inputTitle.length == 0 && content.length == 0)) return SetSave(false)
         if (inputTitle == '') SetInputTitle(getCurrentDate())
         setSavePopUp({ ...savePopUp, saving: true })
-        let noteEdit = doc(db, 'notes', noteID)
+        let collectionName = (props.isArchive) ? 'archives' : 'notes'
+        let noteEdit = doc(db, collectionName, noteID)
         updateDoc(noteEdit, {
             uid: userData.user.uid,
             type: "note",
@@ -245,11 +248,11 @@ const NoteComponent = (props) => {
                 return route.back()
             }
 
-            // timer = setTimeout(() => {
-            //     setSavePopUp({ ...savePopUp, success: false })
-            //     route.back()
-            // }, 2000)
-            // return () => clearTimeout(timer);
+            timer = setTimeout(() => {
+                setSavePopUp({ ...savePopUp, success: false })
+                route.back()
+            }, 2000)
+            return () => clearTimeout(timer);
         }
     }, [savePopUp])
 
@@ -292,6 +295,7 @@ const NoteComponent = (props) => {
                                         SetAutoTitle(false),
                                         SetBacksave(false)
                                 }}
+
                                 onBlur={inputUnfocus}
                                 ref={titleRef}
                                 name="title"
