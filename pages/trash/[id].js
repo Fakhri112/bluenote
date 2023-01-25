@@ -16,9 +16,13 @@ const PostPage = () => {
 
     const fetchData = async () => {
         if (userData && id) {
-            const responseNotes = await axios.post(`/api/getdata?type=trashes&dataId=${id}`,
-                { uid: userData.user.uid })
-            return SetData(responseNotes.data)
+            try {
+                const responseNotes = await axios.post(`/api/getdata?type=trashes&dataId=${id}`,
+                    { uid: userData.user.uid })
+                return SetData(responseNotes.data)
+            } catch (error) {
+                router.push('/404')
+            }
         }
     }
 
