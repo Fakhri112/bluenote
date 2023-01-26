@@ -1,32 +1,36 @@
-.brand{
+.main {
+    margin-top: 20vh;
+}
+
+.brand {
     margin-top: 50px;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.brand>h1{
+.brand>h1 {
     font-family: 'Kdam Thmor Pro', sans-serif;
-    font-size: 28px;
+    font-size: 5vmin;
 }
 
-.button_group{
+.button_group {
     display: flex;
     justify-content: center;
-    gap: 40px;
+    gap: 5vh;
 }
 
-.button_group>button{
+.button_group>button {
     background-color: transparent;
-    width: 210px;
+    width: 30vh;
     border: unset;
 }
 
 @media only screen and (max-width: 600px) {
-.button_group{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
-}
+    .button_group {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
 }

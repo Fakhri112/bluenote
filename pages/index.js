@@ -7,6 +7,7 @@ import Authpage from '../components/login-page/Authpage'
 import { useDataContext } from '../src/hook/StateContext'
 import Delay from '../components/other/Delay'
 import Image from "next/image"
+import Head from 'next/head'
 const axios = require('axios');
 const MAX_INDEX_NOTE = 9
 
@@ -52,6 +53,9 @@ const mainpage = () => {
 
     return (
         <>
+            <Head>
+                <title>BlueNote</title>
+            </Head>
             {(!userData) ?
                 <Delay>
                     <Authpage />
@@ -60,7 +64,7 @@ const mainpage = () => {
                     <header className={style.header_mainpage}>
                         <div className={style.title}>
                             <h1>BlueNote</h1>
-                            <p>A ColorNote Replica App</p>
+                            {/* <p>A ColorNote Replica App</p> */}
                         </div>
                         <div className={`${style.user} dropdown`}>
                             <button

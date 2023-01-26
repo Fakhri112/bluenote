@@ -7,6 +7,7 @@ import { getContentChecklist, sessionGet, sessionSet } from '../src/function/lib
 import { Transition, TransitionGroup } from 'react-transition-group'
 import Image from "next/image"
 import { transitionRemove } from '../src/function/transition'
+import Head from 'next/head'
 const axios = require('axios');
 
 const allnotes = () => {
@@ -105,6 +106,9 @@ const allnotes = () => {
 
     return (
         <div>
+            <Head>
+                <title>Notes</title>
+            </Head>
             <header>
                 <section className={style.menu}>
                     <div className={style.back}>

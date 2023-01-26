@@ -1,8 +1,12 @@
 import Link from "next/link";
+import Head from "next/head";
 import style from '../components/style/404.module.css'
 
 export default function Custom404() {
     return <div>
+        <Head>
+            <title>404</title>
+        </Head>
         <div className={`${style.wrapper} `}>
             <h1>404</h1>
             <h2>PAGE NOT FOUND</h2>

@@ -9,6 +9,7 @@ import { useDataContext } from '../../src/hook/StateContext'
 import { NoteSaved } from '../../components/popup/NoteSaved'
 import { useRouter } from 'next/router'
 import { getColor, getCurrentDate, sessionGet, sessionSet } from '../../src/function/lib'
+import Head from 'next/head'
 
 
 const NoteComponent = (props) => {
@@ -272,73 +273,79 @@ const NoteComponent = (props) => {
     return (
         <div>
             {(!userData) ? null :
-                <main className={style.note_panel}>
-                    <LeftButton status={leftButton}
-                        backsave={backsave}
-                        checkicon={props => { SetLeftButton(props), SetBacksave(false) }}
-                        saveNote={props => SetSave(props)}
-                    />
-                    <section className={`${style.notepad} ${notepadColor.new_color}`}>
-                        {(savePopUp.saved) ? < NoteSaved status={"Saved"} /> : null}
-                        {(savePopUp.saving) ? < NoteSaved status={"Saving"} /> : null}
-                        {(savePopUp.moving) ? < NoteSaved status={"Moving"} /> : null}
-                        {(savePopUp.success) ? < NoteSaved status={"Success"} /> : null}
-                        <div className={style.note_title}
-                        >
-                            <input
+                <>
+                    <Head>
+                        <title>{(props.title) ? props.title : 'Note'}</title>
+                    </Head>
+                    <main className={style.note_panel}>
+                        <LeftButton status={leftButton}
+                            backsave={backsave}
+                            checkicon={props => { SetLeftButton(props), SetBacksave(false) }}
+                            saveNote={props => SetSave(props)}
+                        />
+                        <section className={`${style.notepad} ${notepadColor.new_color}`}>
+                            {(savePopUp.saved) ? < NoteSaved status={"Saved"} /> : null}
+                            {(savePopUp.saving) ? < NoteSaved status={"Saving"} /> : null}
+                            {(savePopUp.moving) ? < NoteSaved status={"Moving"} /> : null}
+                            {(savePopUp.success) ? < NoteSaved status={"Success"} /> : null}
+                            <div className={style.note_title}
+                            >
+                                <input
+                                    readOnly={(props.isTrash) ? true : false}
+                                    type="text"
+                                    className={style.input_title}
+                                    onFocus={() => {
+                                        (props.isTrash) ? null : inputFocus(),
+                                            (props.isTrash) ? null : SetLeftButton(true),
+                                            SetAutoTitle(false),
+                                            SetBacksave(false)
+                                    }}
+
+                                    onBlur={inputUnfocus}
+                                    ref={titleRef}
+                                    name="title"
+                                    onChange={e => SetInputTitle(e.target.value)}
+                                    value={inputTitle}
+                                    maxLength="40"
+                                />
+                                {clearButton}
+                            </div>
+                            <textarea
                                 readOnly={(props.isTrash) ? true : false}
-                                type="text"
-                                className={style.input_title}
+                                ref={textareaRef}
+                                name="content"
+                                autoFocus={(Object.keys(props).length === 0) ? true : false}
                                 onFocus={() => {
-                                    (props.isTrash) ? null : inputFocus(),
-                                        (props.isTrash) ? null : SetLeftButton(true),
-                                        SetAutoTitle(false),
+                                    (props.isTrash) ? null : SetLeftButton(true),
                                         SetBacksave(false)
                                 }}
+                                onChange={handleContent}
+                                onKeyPress={(e) => {
+                                    if (e.key == "Enter") {
+                                        return SetAutoTitle(false)
+                                    }
+                                }}
+                                value={content}
+                            ></textarea>
 
-                                onBlur={inputUnfocus}
-                                ref={titleRef}
-                                name="title"
-                                onChange={e => SetInputTitle(e.target.value)}
-                                value={inputTitle}
-                                maxLength="40"
-                            />
-                            {clearButton}
-                        </div>
-                        <textarea
-                            readOnly={(props.isTrash) ? true : false}
-                            ref={textareaRef}
-                            name="content"
-                            autoFocus={(Object.keys(props).length === 0) ? true : false}
-                            onFocus={() => {
-                                (props.isTrash) ? null : SetLeftButton(true),
-                                    SetBacksave(false)
-                            }}
-                            onChange={handleContent}
-                            onKeyPress={(e) => {
-                                if (e.key == "Enter") {
-                                    return SetAutoTitle(false)
-                                }
-                            }}
-                            value={content}
-                        ></textarea>
-
-                    </section>
-                    <RightButton
-                        currentColor={notepadColor.new_color}
-                        changeBg={Bg => SetNotepadColor({ ...notepadColor, new_color: Bg })}
-                        emptyNote={emptyNote}
-                        emptyNoteDialog={props => SetEmptyNote(props)}
-                        archiveConf={conf => SetArchiveConfirm(conf)}
-                        trashConf={conf => SetTrashConfirm(conf)}
-                        isArchive={props.isArchive}
-                        isTrash={props.isTrash}
-                        unarchive={conf => SetRestore({ ...restore, unarchive: conf })}
-                        untrash={conf => SetRestore({ ...restore, untrash: conf })}
-                        deletePerm={conf => SetDeletePerm(conf)}
-                    />
-                </main>
+                        </section>
+                        <RightButton
+                            currentColor={notepadColor.new_color}
+                            changeBg={Bg => SetNotepadColor({ ...notepadColor, new_color: Bg })}
+                            emptyNote={emptyNote}
+                            emptyNoteDialog={props => SetEmptyNote(props)}
+                            archiveConf={conf => SetArchiveConfirm(conf)}
+                            trashConf={conf => SetTrashConfirm(conf)}
+                            isArchive={props.isArchive}
+                            isTrash={props.isTrash}
+                            unarchive={conf => SetRestore({ ...restore, unarchive: conf })}
+                            untrash={conf => SetRestore({ ...restore, untrash: conf })}
+                            deletePerm={conf => SetDeletePerm(conf)}
+                        />
+                    </main>
+                </>
             }
+
         </div >
 
     )

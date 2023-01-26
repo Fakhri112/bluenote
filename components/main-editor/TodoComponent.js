@@ -12,6 +12,7 @@ import { useRouter } from 'next/router'
 import { getColor, sessionGet, sessionSet } from '../../src/function/lib'
 import EditTodo from '../todo/EditTodo';
 import NavTodo from '../todo/NavTodo'
+import Head from 'next/head';
 import { Timestamp, addDoc, collection, updateDoc, doc, deleteDoc } from 'firebase/firestore'
 
 const TodoComponent = (props) => {
@@ -261,6 +262,9 @@ const TodoComponent = (props) => {
 
     return (
         <div>
+            <Head>
+                <title>{(props.title) ? props.title : 'Checklist'}</title>
+            </Head>
             <main className={style.note_panel}>
                 <LeftButton status={editMode}
                     backsave={backsave}

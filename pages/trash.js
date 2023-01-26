@@ -12,6 +12,7 @@ import { db } from '../src/config/firebase.config'
 import ModalDialog from '../components/popup/ModalDialog'
 import { NoteSaved } from '../components/popup/NoteSaved'
 import { transitionRemove } from '../src/function/transition'
+import Head from 'next/head'
 const axios = require('axios');
 
 
@@ -91,6 +92,9 @@ const trash = () => {
 
     return (
         <div>
+            <Head>
+                <title>Trash</title>
+            </Head>
             <ModalDialog
                 show={deleteAll}
                 closeDialog={status => SetDeleteAll(status)}

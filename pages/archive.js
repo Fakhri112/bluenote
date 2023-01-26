@@ -6,6 +6,7 @@ import { useDataContext } from '../src/hook/StateContext'
 import { getContentChecklist, sessionGet, sessionSet } from '../src/function/lib'
 import { Transition, TransitionGroup } from 'react-transition-group'
 import Image from "next/image"
+import Head from 'next/head'
 import { transitionRemove } from '../src/function/transition'
 const axios = require('axios');
 
@@ -28,9 +29,8 @@ const archive = () => {
 
         })
 
-        // SetDataContext({ ...DataContext, archive_data: response.data })
+
         sessionSet('Context_hook', { archive_data: response.data })
-        // sessionStorage.setItem('Context_hook', JSON.stringify())
         return SetAllNotes(response.data)
 
     }
@@ -110,6 +110,9 @@ const archive = () => {
 
     return (
         <div>
+            <Head>
+                <title>Archive</title>
+            </Head>
             <header>
                 <section className={style.menu}>
                     <div className={style.back}>
