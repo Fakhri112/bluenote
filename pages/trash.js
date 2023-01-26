@@ -39,18 +39,19 @@ const trash = () => {
 
     useEffect(() => {
         SetDeleteAll(false)
-        if (!confEmpty) return
-        if (allnotes.length == 0) return
-        setSavePopUp({ ...savePopUp, deleting: true })
-        for (let i = 0; i <= allnotes.length; i++) {
-            if (i == allnotes.length) {
-                sessionSet('Context_hook', {})
-                setSavePopUp({ deleted: true, deleting: false })
-                SetAllNotes([])
-                break
-            }
-            deleteDoc(doc(db, 'trashes', allnotes[i].id))
-        }
+        console.log(JSON.stringify(allnotes))
+        // if (!confEmpty) return
+        // if (allnotes.length == 0) return
+        // setSavePopUp({ ...savePopUp, deleting: true })
+        // for (let i = 0; i <= allnotes.length; i++) {
+        //     if (i == allnotes.length) {
+        //         sessionSet('Context_hook', {})
+        //         setSavePopUp({ deleted: true, deleting: false })
+        //         SetAllNotes([])
+        //         break
+        //     }
+        //     deleteDoc(doc(db, 'trashes', allnotes[i].id))
+        // }
     }, [confEmpty])
 
 
