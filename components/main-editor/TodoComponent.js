@@ -5,7 +5,6 @@ import style from '../style/notepad.module.css'
 import color from '../style/colornote.module.css'
 import LeftButton from '../navigation/LeftButton'
 import RightButton from '../navigation/RightButton'
-import { db } from '../../src/config/firebase.config'
 import { useDataContext } from '../../src/hook/StateContext'
 import { NoteSaved } from '../../components/popup/NoteSaved'
 import { useRouter } from 'next/router'
@@ -13,7 +12,8 @@ import { getColor, sessionGet, sessionSet } from '../../src/function/lib'
 import EditTodo from '../todo/EditTodo';
 import NavTodo from '../todo/NavTodo'
 import Head from 'next/head';
-import { Timestamp, addDoc, collection, updateDoc, doc, deleteDoc } from 'firebase/firestore'
+import { Timestamp } from 'firebase/firestore'
+const axios = require('axios')
 
 const TodoComponent = (props) => {
     const [clearButton, SetClearButton] = useState(null)
@@ -47,6 +47,7 @@ const TodoComponent = (props) => {
     const [tgrTodoData, SetTgrTodoData] = useState()
     const [archiveConfirm, SetArchiveConfirm] = useState()
     const [trashConfirm, SetTrashConfirm] = useState()
+    const [deletePerm, SetDeletePerm] = useState()
     const { userData } = useDataContext()
     const isMounted = useRef(false);
     const titleRef = useRef()
@@ -95,21 +96,26 @@ const TodoComponent = (props) => {
         if (!saveTodo || (inputTitle.length == 0 && todoData.length == 0)) return SetSaveTodo(false)
         setSavePopUp({ ...savePopUp, saving: true })
 
-        await addDoc(collection(db, "todos"), {
-            uid: userData.user.uid,
-            type: "todo",
-            title: inputTitle,
-            content: todoData,
-            color: getColor(notepadColor.new_color),
-            date_created: Timestamp.now(),
-            date_modified: Timestamp.now()
-        })
-            .then((res) => {
-                setSavePopUp({ saved: true, saving: false })
-                SetTodoID(res.id)
+        try {
+            const send = await axios.post('/api/sendnote?type=todos', {
+                uid: userData.user.uid,
+                type: "todo",
+                title: inputTitle,
+                content: todoData,
+                color: getColor(notepadColor.new_color),
+                date_created: Timestamp.now(),
+                date_modified: Timestamp.now()
             })
-        SetNotepadColor({ ...notepadColor, old_color: notepadColor.new_color })
-        return SetSaveTodo(false)
+
+            if (send.data.status == 200) {
+                setSavePopUp({ ...savePopUp, saved: true, saving: false })
+                SetTodoID(send.data.id)
+                SetNotepadColor({ ...notepadColor, old_color: notepadColor.new_color })
+                return SetSaveTodo(false)
+            }
+        } catch (error) {
+            console.log(error)
+        }
     }
 
 
@@ -117,27 +123,30 @@ const TodoComponent = (props) => {
         if (!saveTodo || (inputTitle.length == 0 && todoData.length == 0)) return SetSaveTodo(false)
         setSavePopUp({ ...savePopUp, saving: true })
         let collectionName = (props.isArchive) ? 'archives' : 'todos'
-        let todoEdit = doc(db, collectionName, todoID)
-        await updateDoc(todoEdit, {
+        let payload = {
             uid: userData.user.uid,
             type: "todo",
             title: inputTitle,
             content: todoData,
             color: getColor(notepadColor.new_color),
             date_modified: Timestamp.now()
-        })
-            .then(() => {
-                setSavePopUp({ saved: true, saving: false })
-            }).catch((e) => {
-                console.log(e)
-            })
-        SetNotepadColor({ ...notepadColor, old_color: notepadColor.new_color })
-        return SetSaveTodo(false)
+        }
+        try {
+            const send = await axios.put(`/api/sendnote?type=${collectionName}&id=${todoID}`, payload)
+            if (send.data.status == 200) {
+                setSavePopUp({ ...savePopUp, saved: true, saving: false })
+                SetNotepadColor({ ...notepadColor, old_color: notepadColor.new_color })
+                return SetSaveTodo(false)
+            }
+        } catch (error) {
+            console.log(error)
+        }
     }
 
 
     const handleArchiveTrash = async (collectionDB, originCollection) => {
         setSavePopUp({ ...savePopUp, moving: true })
+
         const payload = {
             uid: userData.user.uid,
             type: "todo",
@@ -147,17 +156,27 @@ const TodoComponent = (props) => {
             date_created: (!todoID) ? Timestamp.now() : dateTodo.date_created,
             date_modified: Timestamp.now()
         }
-
-        await addDoc(collection(db, collectionDB), payload)
-            .then((res) => {
+        try {
+            const send = await axios.post(`/api/sendnote?type=${collectionDB}`, payload)
+            if (send.data.status == 200) {
                 setSavePopUp({ ...savePopUp, success: true, moving: false })
-            })
-            .catch((error) => {
-                console.log(error)
-            })
+                if (todoID) return axios.delete(`/api/sendnote?type=${originCollection}`, { data: { id: todoID } })
+                return
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
-        if (todoID) return await deleteDoc(doc(db, originCollection, todoID));
-        return
+    const handleDeletePermanent = async () => {
+        if (!todoID) return
+        setSavePopUp({ ...savePopUp, moving: true })
+        try {
+            await axios.delete(`/api/sendnote?type=trashes`, { data: { id: todoID } })
+            return setSavePopUp({ ...savePopUp, success: true, moving: false })
+        } catch (error) {
+            console.log(error)
+        }
     }
 
 
@@ -176,11 +195,8 @@ const TodoComponent = (props) => {
         if (trashConfirm) { handleArchiveTrash('trashes', 'todos') }
         if (restore.unarchive) { handleArchiveTrash('todos', 'archives') }
         if (restore.untrash) { handleArchiveTrash('todos', 'trashes') }
-        return () => {
-            SetArchiveConfirm(false)
-            SetTrashConfirm(false)
-        }
-    }, [todoData, inputTitle, archiveConfirm, trashConfirm, restore])
+        if (deletePerm) { handleDeletePermanent() }
+    }, [todoData, inputTitle, archiveConfirm, trashConfirm, restore, deletePerm])
 
 
     useEffect(() => {
@@ -341,6 +357,7 @@ const TodoComponent = (props) => {
                     isTrash={props.isTrash}
                     unarchive={conf => SetRestore({ ...restore, unarchive: conf })}
                     untrash={conf => SetRestore({ ...restore, untrash: conf })}
+                    deletePerm={conf => SetDeletePerm(conf)}
                 />
 
             </main>

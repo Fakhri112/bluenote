@@ -10,9 +10,10 @@ export default async function handler(req, res) {
     switch (req.method) {
         case 'POST':
             try {
-                await db.collection(DATA_TYPE).add(USER_DATA);
+                const sendingData = await db.collection(DATA_TYPE).add(USER_DATA);
                 return res.json({
                     status: 200,
+                    id: sendingData._path.segments[1],
                     msg: 'Success'
                 })
             } catch (error) {
@@ -36,7 +37,6 @@ export default async function handler(req, res) {
             }
         case 'DELETE':
             try {
-                if (USER_DATA.note_uid !== USER_DATA.current_Id) return res.status(401).send('Not Authorized')
                 await db.collection(DATA_TYPE).doc(USER_DATA.id).delete()
                 return res.json({
                     status: 200,

@@ -25,11 +25,7 @@ const allnotes = () => {
             })
             let dataCombined = responseTodos.data.concat(responseNotes.data)
             dataCombined.sort((a, b) => {
-                let fa = a.color.toLowerCase(),
-                    fb = b.color.toLowerCase();
-                if (fa < fb) return 1;
-
-                if (fa > fb) return -1;
+                return b['date_modified'].seconds - a['date_modified'].seconds
 
             })
             sessionSet('Context_hook', { allnotes_data: dataCombined })
@@ -95,7 +91,7 @@ const allnotes = () => {
                     if (ca > cb) return -1;
                 }
                 else {
-                    return b[sortlistActive]._seconds - a[sortlistActive]._seconds
+                    return b[sortlistActive].seconds - a[sortlistActive].seconds
                 }
 
             })

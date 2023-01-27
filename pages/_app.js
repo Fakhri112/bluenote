@@ -1,5 +1,5 @@
 import '../styles/globals.css'
-import '../src/config/firebase.config'
+import '../src/config/firebaseclient.config'
 import Head from 'next/head'
 import Script from 'next/script'
 import { StateProvider } from '../src/hook/StateContext'

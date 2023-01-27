@@ -97,7 +97,7 @@ const archive = () => {
                     if (ca > cb) return -1;
                 }
                 else {
-                    return b[sortlistActive]._seconds - a[sortlistActive]._seconds
+                    return b[sortlistActive].seconds - a[sortlistActive].seconds
                 }
 
             })

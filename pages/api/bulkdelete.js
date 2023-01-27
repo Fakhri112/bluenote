@@ -8,13 +8,11 @@ export default async function handler(req, res) {
 
         try {
             let arrayTrash = JSON.parse(TRASH_DATA.all_trash)
-            console.log(arrayTrash.length)
             if (TRASH_DATA.current_uid !== arrayTrash[0].uid) {
                 return res.status(401).send('Not Authorized')
             }
 
             for (let index = 0; index < arrayTrash.length; index++) {
-                console.log(index)
                 if (index == arrayTrash.length) {
                     break
                 }
@@ -25,6 +23,7 @@ export default async function handler(req, res) {
                 msg: 'Success'
             })
         } catch (error) {
+            console.log(error)
             return res.json({
                 status: 500,
                 msg: 'Internal Server Error'

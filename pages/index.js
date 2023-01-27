@@ -40,7 +40,7 @@ const mainpage = () => {
             })
             let dataCombined = responseTodos.data.concat(responseNotes.data)
             dataCombined.sort((a, b) => {
-                return b['date_modified']._seconds - a['date_modified']._seconds
+                return b['date_modified'].seconds - a['date_modified'].seconds
 
             })
             return SetAllNotes(dataCombined.slice(0, MAX_INDEX_NOTE))

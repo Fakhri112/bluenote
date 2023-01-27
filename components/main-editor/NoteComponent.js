@@ -1,15 +1,15 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { Timestamp, addDoc, collection, doc, updateDoc, deleteDoc } from 'firebase/firestore'
+import { Timestamp } from 'firebase/firestore'
 import style from '../style/notepad.module.css'
 import color from '../style/colornote.module.css'
 import LeftButton from '../navigation/LeftButton'
 import RightButton from '../navigation/RightButton'
-import { db } from '../../src/config/firebase.config'
 import { useDataContext } from '../../src/hook/StateContext'
 import { NoteSaved } from '../../components/popup/NoteSaved'
 import { useRouter } from 'next/router'
 import { getColor, getCurrentDate, sessionGet, sessionSet } from '../../src/function/lib'
 import Head from 'next/head'
+const axios = require('axios')
 
 
 const NoteComponent = (props) => {
@@ -49,6 +49,7 @@ const NoteComponent = (props) => {
     const titleRef = useRef()
     const textareaRef = useRef()
 
+
     const inputFocus = () => {
         if (inputTitle.length !== 0 && document.activeElement === titleRef.current) {
 
@@ -86,29 +87,32 @@ const NoteComponent = (props) => {
         return SetAutoTitle(false)
     }
 
+
     const handleSave = async () => {
         if (!save ||
             (inputTitle.length == 0 && content.length == 0)) return SetSave(false)
         if (inputTitle == '') SetInputTitle(getCurrentDate())
         setSavePopUp({ ...savePopUp, saving: true })
-        await addDoc(collection(db, "notes"), {
-            uid: userData.user.uid,
-            type: "note",
-            title: inputTitle,
-            content,
-            color: getColor(notepadColor.new_color),
-            date_created: Timestamp.now(),
-            date_modified: Timestamp.now()
-        })
-            .then((res) => {
+        try {
+            const send = await axios.post('/api/sendnote?type=notes', {
+                uid: userData.user.uid,
+                type: "note",
+                title: inputTitle,
+                content,
+                color: getColor(notepadColor.new_color),
+                date_created: Timestamp.now(),
+                date_modified: Timestamp.now()
+            })
+
+            if (send.data.status == 200) {
                 setSavePopUp({ ...savePopUp, saved: true, saving: false })
-                SetNoteID(res.id)
-            })
-            .catch((error) => {
-                console.log(error)
-            })
-        SetNotepadColor({ ...notepadColor, old_color: notepadColor.new_color })
-        return SetSave(false)
+                SetNoteID(send.data.id)
+                SetNotepadColor({ ...notepadColor, old_color: notepadColor.new_color })
+                return SetSave(false)
+            }
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     const handleUpdate = async () => {
@@ -116,24 +120,24 @@ const NoteComponent = (props) => {
         if (inputTitle == '') SetInputTitle(getCurrentDate())
         setSavePopUp({ ...savePopUp, saving: true })
         let collectionName = (props.isArchive) ? 'archives' : 'notes'
-        let noteEdit = doc(db, collectionName, noteID)
-        updateDoc(noteEdit, {
+        let payload = {
             uid: userData.user.uid,
             type: "note",
             title: inputTitle,
             content,
             color: getColor(notepadColor.new_color),
             date_modified: Timestamp.now()
-        })
-            .then(() => {
+        }
+        try {
+            const send = await axios.put(`/api/sendnote?type=${collectionName}&id=${noteID}`, payload)
+            if (send.data.status == 200) {
                 setSavePopUp({ ...savePopUp, saved: true, saving: false })
-            })
-            .catch((error) => {
-                console.log(error)
-            })
-        SetNotepadColor({ ...notepadColor, old_color: notepadColor.new_color })
-        return SetSave(false)
-
+                SetNotepadColor({ ...notepadColor, old_color: notepadColor.new_color })
+                return SetSave(false)
+            }
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     const handleArchiveTrash = async (collectionDB, originCollection) => {
@@ -147,28 +151,28 @@ const NoteComponent = (props) => {
             date_created: (!noteID) ? Timestamp.now() : dateTodo.date_created,
             date_modified: Timestamp.now()
         }
-
-        await addDoc(collection(db, collectionDB), payload)
-            .then((res) => {
+        try {
+            const send = await axios.post(`/api/sendnote?type=${collectionDB}`, payload)
+            if (send.data.status == 200) {
                 setSavePopUp({ ...savePopUp, success: true, moving: false })
-            })
-            .catch((error) => {
-                console.log(error)
-            })
-        if (noteID) return await deleteDoc(doc(db, originCollection, noteID));
-        return
+                if (noteID) return axios.delete(`/api/sendnote?type=${originCollection}`, { data: { id: noteID } })
+                return
+            }
+        } catch (error) {
+            console.log(error)
+        }
+
     }
 
     const handleDeletePermanent = async () => {
         if (!noteID) return
         setSavePopUp({ ...savePopUp, moving: true })
-        return await deleteDoc(doc(db, 'trashes', noteID))
-            .then((res) => {
-                setSavePopUp({ ...savePopUp, success: true, moving: false })
-            })
-            .catch((error) => {
-                console.log(error)
-            });
+        try {
+            await axios.delete(`/api/sendnote?type=trashes`, { data: { id: noteID } })
+            return setSavePopUp({ ...savePopUp, success: true, moving: false })
+        } catch (error) {
+            console.log(error)
+        }
     }
 
 
