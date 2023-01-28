@@ -6,6 +6,7 @@ body {
     overflow-x: hidden;
     background-color: rgb(255, 255, 255);
     margin: 0;
+    line-height: unset !important;
 }
 
 h1 {
@@ -15,7 +16,7 @@ h1 {
 }
 
 svg {
-    width: 2.269vw
+    width: 31px
 }
 
 a {

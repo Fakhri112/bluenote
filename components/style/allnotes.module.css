@@ -14,6 +14,7 @@ header>.menu {
 }
 
 .menu>input {
+    min-width: 12vh;
     height: 4.96vh;
     width: 7.321vw;
     font-size: 2.1vmin;
@@ -21,6 +22,7 @@ header>.menu {
 
 
 .dropdown>button {
+    min-width: 12vh;
     width: 6.589vw;
     height: 4.96vh;
     font-size: 2.1vmin;

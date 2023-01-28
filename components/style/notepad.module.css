@@ -131,7 +131,7 @@
 .navTodo>div>a,
 .addTodo {
     cursor: pointer;
-    font-size: 1.9vmin;
+    font-size: 2vh;
 }
 
 .navTodo>div>a {
@@ -238,6 +238,8 @@
 /* menu option on right-side */
 
 .option {
+    /* outline: 1px solid black; */
+    min-width: 9vh;
     display: flex;
     flex-direction: column;
     gap: 18px;
@@ -258,7 +260,7 @@
 }
 
 .option>div>button>svg {
-    width: 1.56vw;
+    width: 3vh;
     margin-top: -4px;
 }
 

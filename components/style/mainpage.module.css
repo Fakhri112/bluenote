@@ -165,9 +165,8 @@
 /* more selection */
 
 .more {
+    min-width: 30vh;
     animation: slide-left 0.3s both;
-    min-width: 100px;
-    width: 14.64vw;
     z-index: 0;
 }
 
