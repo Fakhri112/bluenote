@@ -8,7 +8,7 @@ import RightButton from '../navigation/RightButton'
 import { useDataContext } from '../../src/hook/StateContext'
 import { NoteSaved } from '../../components/popup/NoteSaved'
 import { useRouter } from 'next/router'
-import { getColor, sessionGet, sessionSet } from '../../src/function/lib'
+import { getColor, getCurrentDate, sessionGet, sessionSet } from '../../src/function/lib'
 import EditTodo from '../todo/EditTodo';
 import NavTodo from '../todo/NavTodo'
 import Head from 'next/head';
@@ -94,6 +94,7 @@ const TodoComponent = (props) => {
 
     const handleSave = async () => {
         if (!saveTodo || (inputTitle.length == 0 && todoData.length == 0)) return SetSaveTodo(false)
+        if (inputTitle == '') return SetInputTitle(getCurrentDate())
         setSavePopUp({ ...savePopUp, saving: true })
 
         try {
@@ -123,6 +124,7 @@ const TodoComponent = (props) => {
 
     const handleUpdate = async () => {
         if (!saveTodo || (inputTitle.length == 0 && todoData.length == 0)) return SetSaveTodo(false)
+        if (inputTitle == '') return SetInputTitle(getCurrentDate())
         setSavePopUp({ ...savePopUp, saving: true })
         let collectionName = (props.isArchive) ? 'archives' : 'todos'
         let payload = {
@@ -149,7 +151,7 @@ const TodoComponent = (props) => {
 
     const handleArchiveTrash = async (collectionDB, originCollection) => {
         setSavePopUp({ ...savePopUp, moving: true })
-
+        if (inputTitle == '') return SetInputTitle(getCurrentDate())
         const payload = {
             uid: userData.user.uid,
             type: "todo",

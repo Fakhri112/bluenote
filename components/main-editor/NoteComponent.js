@@ -91,7 +91,7 @@ const NoteComponent = (props) => {
     const handleSave = async () => {
         if (!save ||
             (inputTitle.length == 0 && content.length == 0)) return SetSave(false)
-        if (inputTitle == '') SetInputTitle(getCurrentDate())
+        if (inputTitle == '') return SetInputTitle(getCurrentDate())
         setSavePopUp({ ...savePopUp, saving: true })
         try {
             const timeNow = Timestamp.now()
@@ -119,7 +119,7 @@ const NoteComponent = (props) => {
 
     const handleUpdate = async () => {
         if (!save || (inputTitle.length == 0 && content.length == 0)) return SetSave(false)
-        if (inputTitle == '') SetInputTitle(getCurrentDate())
+        if (inputTitle == '') return SetInputTitle(getCurrentDate())
         setSavePopUp({ ...savePopUp, saving: true })
         let collectionName = (props.isArchive) ? 'archives' : 'notes'
         let payload = {
@@ -145,6 +145,7 @@ const NoteComponent = (props) => {
 
     const handleArchiveTrash = async (collectionDB, originCollection) => {
         setSavePopUp({ ...savePopUp, moving: true })
+        if (inputTitle == '') return SetInputTitle(getCurrentDate())
         const payload = {
             uid: userData.user.uid,
             type: "note",
