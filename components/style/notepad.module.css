@@ -317,12 +317,13 @@
     align-items: center;
     justify-content: center;
     list-style: none;
-    width: 22.6vh;
+    width: 24.6vh;
 }
 
 .container_color_option {
-    padding-top: 2px;
-    height: 139px;
+    padding-top: 0.5vh;
+    height: 23vh;
+
 }
 
 

@@ -97,17 +97,19 @@ const TodoComponent = (props) => {
         setSavePopUp({ ...savePopUp, saving: true })
 
         try {
+            const timeNow = Timestamp.now()
             const send = await axios.post('/api/sendnote?type=todos', {
                 uid: userData.user.uid,
                 type: "todo",
                 title: inputTitle,
                 content: todoData,
                 color: getColor(notepadColor.new_color),
-                date_created: Timestamp.now(),
-                date_modified: Timestamp.now()
+                date_created: timeNow,
+                date_modified: timeNow
             })
 
             if (send.data.status == 200) {
+                SetDateTodo({ ...dateTodo, date_created: timeNow })
                 setSavePopUp({ ...savePopUp, saved: true, saving: false })
                 SetTodoID(send.data.id)
                 SetNotepadColor({ ...notepadColor, old_color: notepadColor.new_color })
@@ -129,7 +131,8 @@ const TodoComponent = (props) => {
             title: inputTitle,
             content: todoData,
             color: getColor(notepadColor.new_color),
-            date_modified: Timestamp.now()
+            date_modified: Timestamp.now(),
+            date_created: dateTodo.date_created,
         }
         try {
             const send = await axios.put(`/api/sendnote?type=${collectionName}&id=${todoID}`, payload)

@@ -41,9 +41,9 @@ export const StateProvider = ({ children }) => {
         // }
 
         // return SetDataContext(get_context_hook)
-        console.log = () => { }
-        console.error = () => { }
-        console.debug = () => { }
+        // console.log = () => { }
+        // console.error = () => { }
+        // console.debug = () => { }
     })
 
 

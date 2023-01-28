@@ -30,7 +30,7 @@ const NoteComponent = (props) => {
         moving: false,
         success: false,
     })
-    const [dateTodo, SetDateTodo] = useState({
+    const [dateNote, SetDateNote] = useState({
         date_modified: null,
         date_created: null
     })
@@ -94,17 +94,19 @@ const NoteComponent = (props) => {
         if (inputTitle == '') SetInputTitle(getCurrentDate())
         setSavePopUp({ ...savePopUp, saving: true })
         try {
+            const timeNow = Timestamp.now()
             const send = await axios.post('/api/sendnote?type=notes', {
                 uid: userData.user.uid,
                 type: "note",
                 title: inputTitle,
                 content,
                 color: getColor(notepadColor.new_color),
-                date_created: Timestamp.now(),
-                date_modified: Timestamp.now()
+                date_created: timeNow,
+                date_modified: timeNow
             })
 
             if (send.data.status == 200) {
+                SetDateNote({ ...dateNote, date_created: timeNow })
                 setSavePopUp({ ...savePopUp, saved: true, saving: false })
                 SetNoteID(send.data.id)
                 SetNotepadColor({ ...notepadColor, old_color: notepadColor.new_color })
@@ -126,7 +128,8 @@ const NoteComponent = (props) => {
             title: inputTitle,
             content,
             color: getColor(notepadColor.new_color),
-            date_modified: Timestamp.now()
+            date_modified: Timestamp.now(),
+            date_created: dateNote.date_created,
         }
         try {
             const send = await axios.put(`/api/sendnote?type=${collectionName}&id=${noteID}`, payload)
@@ -148,7 +151,7 @@ const NoteComponent = (props) => {
             title: inputTitle,
             content,
             color: getColor(notepadColor.new_color),
-            date_created: (!noteID) ? Timestamp.now() : dateTodo.date_created,
+            date_created: (!noteID) ? Timestamp.now() : dateNote.date_created,
             date_modified: Timestamp.now()
         }
         try {
@@ -190,7 +193,7 @@ const NoteComponent = (props) => {
                 new_color: color[props.color + '_notepad'],
                 old_color: color[props.color + '_notepad']
             })
-            SetDateTodo({
+            SetDateNote({
                 date_created: props.date_created,
                 date_modified: props.date_modified
             })
