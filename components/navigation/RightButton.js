@@ -1,12 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react'
-import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
 import style from '../style/notepad.module.css'
 import color from '../style/colornote.module.css'
 import { getColor } from '../../src/function/lib';
-import folder_up from '../../public/note-assets/folder-up.png';
 import ModalDialog from '../popup/ModalDialog';
-import Image from 'next/image';
 
 
 
@@ -203,7 +199,7 @@ const RightButton = (props) => {
                             <button onMouseDown={() => { props.unarchive(true) }}>
                                 <div className={style.unarchive}>
                                     <svg xmlns="http://www.w3.org/2000/svg" version="1.0" viewBox="0 0 273.000000 214.000000">
-                                        <g transform="translate(15,190.000000) scale(0.100000,-0.100000)" fill="#000000">
+                                        <g transform="translate(9,190.000000) scale(0.100000,-0.100000)" fill="#000000">
                                             <path d="M491 1860 c-80 -17 -154 -82 -180 -159 -16 -48 -16 -1288 0 -1342 17 -55 65 -108 123 -135 l51 -24 770 0 770 0 52 24 c58 27 107 85 123 148 7 25 10 221 8 561 l-3 522 -28 47 c-30 52 -73 88 -127 108 -25 10 -132 15 -380 19 -398 7 -356 -4 -485 122 -117 114 -114 113 -405 116 -135 1 -265 -2 -289 -7z m961 -748 c155 -154 158 -159 158 -200 0 -56 -33 -92 -86 -92 -31 0 -46 9 -104 65 -83 81 -80 88 -80 -163 0 -181 0 -183 -25 -207 -32 -33 -84 -33 -122 -1 l-28 24 -3 207 -3 207 -69 -66 c-59 -57 -73 -66 -105 -66 -49 0 -95 44 -95 91 0 30 18 52 163 196 216 217 188 216 399 5z" />
                                         </g>
                                     </svg>
