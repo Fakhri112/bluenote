@@ -48,6 +48,7 @@ const mainpage = () => {
     }
 
     useEffect(() => {
+        sessionStorage.removeItem('Context_hook')
         fetchNotes()
     }, [userData])
 

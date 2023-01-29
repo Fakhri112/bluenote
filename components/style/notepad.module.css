@@ -34,8 +34,6 @@
 
 }
 
-.notepad:active {}
-
 .notepad>.note_title {
     display: flex;
     margin-bottom: 5px;
@@ -80,11 +78,11 @@
 }
 
 .notepad>.note_title>button>svg {
-    background-color: white;
     border: 0px;
     padding: 0%;
-    width: 1.098vw !important;
-    margin-left: -40px;
+    width: 3.5vh !important;
+    margin-left: -2.8vw;
+    background-color: transparent !important;
 
 }
 
@@ -107,10 +105,6 @@
     outline: none !important;
     border: 1px solid rgb(206, 206, 206);
     background-color: rgba(255, 255, 255, 0.8);
-}
-
-.clear_button>svg {
-    background-color: transparent !important;
 }
 
 
@@ -180,7 +174,7 @@
 }
 
 .checkbox {
-    width: 1.464vw;
+    width: 3.2vh;
     height: 3.2vh;
     margin-right: 15px;
 }

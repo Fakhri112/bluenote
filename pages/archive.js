@@ -81,6 +81,7 @@ const archive = () => {
 
     useEffect(() => {
         let notesCopy = allnotes
+        SetAllNotes([])
         if (allnotes.length !== 0) {
             notesCopy.sort((a, b) => {
                 let ta = a.title.toLowerCase(),
@@ -101,7 +102,9 @@ const archive = () => {
                 }
 
             })
-            return SetAllNotes([...notesCopy])
+            setTimeout(() => {
+                return SetAllNotes([...notesCopy])
+            }, 20);
         }
 
     }, [sortlistActive])
