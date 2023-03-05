@@ -81,7 +81,7 @@ const archive = () => {
 
     useEffect(() => {
         let notesCopy = allnotes
-        SetAllNotes([])
+        if (!sessionGet('Context_hook').removeData) SetAllNotes([])
         if (allnotes.length !== 0) {
             notesCopy.sort((a, b) => {
                 let ta = a.title.toLowerCase(),

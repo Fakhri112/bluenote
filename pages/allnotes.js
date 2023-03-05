@@ -55,6 +55,7 @@ const allnotes = () => {
             if (a?.hasOwnProperty('removeData')) {
                 let remove = allnotes_copy.filter(data => data.id !== a.removeData)
                 if (allnotes.length !== remove.length) {
+                    console.log(remove)
                     SetAllNotes([...remove])
                 }
                 if (a.allnotes_data.length !== 0) {
@@ -75,7 +76,7 @@ const allnotes = () => {
 
     useEffect(() => {
         let notesCopy = allnotes
-        SetAllNotes([])
+        if (!sessionGet('Context_hook').removeData) SetAllNotes([])
         if (allnotes.length !== 0) {
             notesCopy.sort((a, b) => {
                 let ta = a.title.toLowerCase(),
