@@ -3,7 +3,7 @@ import {
     getAuth,
     GoogleAuthProvider,
     FacebookAuthProvider,
-    signInWithPopup,
+    signInWithRedirect
 } from "firebase/auth"
 import fb_btn from '../../public/login-assets/fb_btn.jpg'
 import google_btn from '../../public/login-assets/google_btn.png'
@@ -20,7 +20,7 @@ const Authpage = () => {
     const fbProv = new FacebookAuthProvider()
 
     const signGoogle = () => {
-        signInWithPopup(auth, googleProv)
+        signInWithRedirect(auth, googleProv)
             .then((response) => {
                 localStorage.setItem("logged_user", JSON.stringify(response))
                 router.reload()
@@ -31,7 +31,7 @@ const Authpage = () => {
     }
 
     const signFB = () => {
-        signInWithPopup(auth, fbProv)
+        signInWithRedirect(auth, fbProv)
             .then((response) => {
                 localStorage.setItem("logged_user", JSON.stringify(response))
                 router.reload()
