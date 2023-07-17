@@ -22,6 +22,7 @@ svg {
 a {
     text-decoration: none !important;
     color: #343434 !important;
+    cursor: pointer;
 }
 
 p {

@@ -1,5 +1,5 @@
 .main {
-    margin-top: 20vh;
+    margin-top: 15vh;
 }
 
 .brand {
@@ -24,6 +24,33 @@
     background-color: transparent;
     width: 30vh;
     border: unset;
+}
+
+.form_group>input {
+    display: block;
+    width: 100%;
+    margin-bottom: 0.75rem;
+    height: 2rem;
+    margin-top: 0.5rem;
+}
+
+.form_group>a {
+    cursor: pointer;
+    display: block;
+}
+
+.auth_link {
+    color: rgb(59, 38, 107) !important;
+    font-weight: 500;
+}
+
+.auth_link:hover {
+    color: rgb(102, 84, 146) !important;
+}
+
+
+.signInEmail:hover {
+    color: rgb(90, 90, 126);
 }
 
 @media only screen and (max-width: 600px) {
