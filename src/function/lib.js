@@ -33,10 +33,18 @@ const sessionSet = (key, value) => {
     sessionStorage.setItem(key, JSON.stringify(value))
 }
 
+const getPrefixEmail = (email) => {
+   
+    let index = email.indexOf('@')
+    let prefix = email.slice(0, index)
+    return prefix
+}
+
 module.exports = {
     getColor,
     getContentChecklist,
     getCurrentDate,
     sessionGet,
-    sessionSet
+    sessionSet,
+    getPrefixEmail
 };

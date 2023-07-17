@@ -3,10 +3,10 @@ import {
 	getAuth,
 	GoogleAuthProvider,
 	FacebookAuthProvider,
-	signInWithRedirect,
 	signInWithEmailAndPassword,
 	createUserWithEmailAndPassword,
 	signInWithPopup,
+	sendPasswordResetEmail
 } from "firebase/auth";
 import fb_btn from "../../public/login-assets/fb_btn.jpg";
 import google_btn from "../../public/login-assets/google_btn.png";
@@ -57,11 +57,38 @@ const Authpage = () => {
 				userEmail,
 				userPassword.pwd,
 			);
-			console.log(user);
+			localStorage.setItem("logged_user", JSON.stringify(user));
+			router.reload();
 		} catch (error) {
 			console.log(error);
 		}
 	};
+
+	const signIn = async () => {
+		try {
+			const user = signInWithEmailAndPassword(
+				auth,
+				userEmail,
+				userPassword.pwd
+			)
+			localStorage.setItem("logged_user", JSON.stringify(user));
+			router.reload();
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
+	const forgotPW = async () => {
+		try {
+			const user = await sendPasswordResetEmail(
+				auth,
+				userEmail,
+			);
+			alert('Password reset has successfully sent to your email')
+		} catch (error) {
+			console.log(error);
+		}
+	}
 
 	useEffect(() => {
 		document.body.style.backgroundColor =
@@ -118,14 +145,13 @@ const Authpage = () => {
 							</small>
 							<hr />
 							<small>
-								Dont have an account?
+								Dont have an account? &nbsp;
 								<a
 									className={style.auth_link}
 									href="#"
 									onClick={() =>
 										SetAuthType({ ...authType, signIn: false, signUp: true })
 									}>
-									{" "}
 									Sign Up
 								</a>
 							</small>
@@ -173,7 +199,7 @@ const Authpage = () => {
 							/>
 							<hr />
 							<small>
-								Already have an account?
+								Already have an account? &nbsp;
 								<a
 									className={style.auth_link}
 									href="#"
@@ -190,14 +216,14 @@ const Authpage = () => {
 				</Modal.Body>
 				<Modal.Footer>
 					{authType.signIn ? (
-						<Button
-							variant="primary"
-							onClick={() =>
-								SetAuthType({ ...authType, signIn: false, signUp: true })
-							}>
+						<Button variant="primary" onClick={() => signIn()}>
 							Sign-in
 						</Button>
-					) : (
+					) : authType.forgotPW ?
+						(<Button variant="primary" onClick={() => forgotPW()}>
+							Send Password
+						</Button>)
+					: (
 						<Button variant="primary" onClick={() => signUp()}>
 							Sign-Up
 						</Button>
