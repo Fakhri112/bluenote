@@ -46,9 +46,9 @@
     ;
     border-width: 0;
     width: 100%;
-    font-size: 6.4vmin;
+    font-size: 34px;
     font-weight: 500;
-    height: 8vh;
+    height: 1.3em;
 }
 
 .notepad>.note_title>.title_strikethrough {
@@ -64,9 +64,9 @@
     border-radius: 0;
     outline: none;
     width: 100%;
-    font-size: 6.4vmin;
+    font-size: 34px;
     font-weight: 500;
-    height: 8vh;
+    height: 1.3em;
     font-weight: 500;
 }
 
@@ -80,8 +80,8 @@
 .notepad>.note_title>button>svg {
     border: 0px;
     padding: 0%;
-    width: 3.5vh !important;
-    margin-left: -2.8vw;
+    width: 1.5em !important;
+    margin-left: -2.8em;
     background-color: transparent !important;
 
 }
@@ -94,7 +94,7 @@
     background-color: rgba(0, 0, 0, 0.0);
     ;
     border-width: 0;
-    font-size: 2.5vmin;
+    font-size: 13px;;
 }
 
 .notepad>textarea:focus {
@@ -118,14 +118,14 @@
 .navTodo {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 2.2vh;
+    margin-bottom: 13px;
     margin-top: 15px;
 }
 
 .navTodo>div>a,
 .addTodo {
     cursor: pointer;
-    font-size: 2vh;
+    font-size: 12px;
 }
 
 .navTodo>div>a {
@@ -143,15 +143,15 @@
 }
 
 .dropdownNavTodo>ul>li {
-    padding-top: 0.640vh;
-    padding-bottom: 0.640vh;
+    padding-top: 4px;
+    padding-bottom: 4px;
 }
 
 .dropdownNavTodo>ul>li>a {
     cursor: pointer;
-    font-size: 1.9vmin;
+    font-size: 12px;
     margin-bottom: 8px;
-    margin-left: 1.098vw;
+    margin-left: 12px;
     margin-right: 0.48vw;
 }
 
@@ -163,8 +163,11 @@
 
 /* todo main content */
 
+
+
 .todoList>label {
-    font-size: 3vmin;
+    font-size: 15px;
+    margin-top: 1px;
     width: 80%;
 }
 
@@ -174,8 +177,8 @@
 }
 
 .checkbox {
-    width: 3.2vh;
-    height: 3.2vh;
+    width: 1.1em;
+    height: 1.1em;
     margin-right: 15px;
 }
 
@@ -207,7 +210,7 @@
     margin: 0;
     border: unset;
     width: 100%;
-    font-size: 3vmin;
+    font-size: 15px;
     resize: none;
     overflow: hidden;
 }
@@ -219,7 +222,7 @@
     border-radius: 0;
     outline: none !important;
     width: 100%;
-    font-size: 3vmin;
+    font-size: 15px;
     resize: none;
     overflow: hidden;
 }
@@ -233,7 +236,7 @@
 
 .option {
     /* outline: 1px solid black; */
-    min-width: 9vh;
+    min-width: 4em;
     display: flex;
     flex-direction: column;
     gap: 18px;
@@ -243,7 +246,7 @@
 
 .option>.color_option,
 .option>.archive_trash {
-    font-size: 2.5vmin;
+    font-size: 13px;;
 }
 
 
@@ -254,20 +257,20 @@
 }
 
 .option>div>button>svg {
-    width: 3vh;
+    width: 1.2em;
     margin-top: -4px;
 }
 
 .option>.archive_trash>button {
     padding: 0%;
-    width: 6.4vh;
-    height: 6.4vh;
+    width: 3.2em;
+    height: 3.2em;
     border: 2px solid grey;
     border-radius: 50px;
 }
 
 .option>.archive_trash>a {
-    font-size: 2.5vmin;
+    font-size: 13px;;
 }
 
 .option>.archive_trash>button:hover {
@@ -275,21 +278,21 @@
 }
 
 /* .option>div>button>svg {
-    width: 3vmin;
+    width: 15px;
 } */
 
 .option>.deleteBtn_restore {
-    font-size: 2.4vmin;
+    font-size: 13px;;
     border: 1px solid #a99999;
     background: none;
-    width: 7vw;
+    width: 7em;
 }
 
 .option>.deleteBtn_deletePerm {
-    font-size: 2vmin;
+    font-size: 11px;
     border: 1px solid #a99999;
     background: none;
-    width: 7vw;
+    width: 8em;
 }
 
 .deleteBtn_deletePerm:hover,
@@ -302,8 +305,8 @@
 }
 
 .flex_menu {
-    background-color: rgb(255, 255, 255);
-    height: 21.600vh;
+    background-color: rgb(246, 253, 255);
+    height: 100%;
     padding: 0%;
     display: flex !important;
     flex-wrap: wrap !important;
@@ -311,12 +314,13 @@
     align-items: center;
     justify-content: center;
     list-style: none;
-    width: 24.6vh;
+    width: 9.8em;
 }
 
 .container_color_option {
-    padding-top: 0.5vh;
-    height: 23vh;
+    padding-top: 0.1em;
+    height: 8.3em;
+    padding: 0 !important;
 
 }
 
@@ -329,9 +333,9 @@
     position: fixed;
     left: 50%;
     transform: translateX(-50%);
-    width: 19.766vw;
-    height: 6.080vh;
-    font-size: 2.5vmin;
+    width: 18em;
+    height: 2.7em;
+    font-size: 13px;;
     background-color: rgba(51, 46, 46, 255);
     display: flex;
     justify-content: center;

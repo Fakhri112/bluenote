@@ -4,8 +4,8 @@
     justify-content: center;
     align-items: center;
     border: 1px solid grey;
-    width: 17vh;
-    height: 5vh;
+    width: 7em;
+    height: 1.7em;
     animation: slide-left 0.3s both;
 }
 
@@ -15,7 +15,7 @@
 
 .delete_all_notes>a>p {
     cursor: pointer;
-    font-size: 1.9vmin;
+    font-size: 12px;
 }
 
 /* main section */
@@ -25,15 +25,13 @@
     width: 100%;
     z-index: -1;
     animation: slide-left 0.3s 0.3s both;
-    margin-top: 12px;
 }
 
 .note {
-    width: calc(25.6vh - 1vh);
-    height: 25.6vh;
+    width: 9.4em;
+    height: 9.7em;
     overflow-y: hidden;
     padding: 0 4px;
-
     /* animation: slide-left 0.3s both; */
 }
 
@@ -41,8 +39,8 @@
 
     cursor: pointer;
     position: relative;
-    outline: 0.32vmin solid rgb(163, 163, 163);
-    outline-offset: 0.2vmin;
+    outline: 2px solid rgb(163, 163, 163);
+    outline-offset: 1px;
 }
 
 
@@ -52,7 +50,7 @@
 
 .note>p {
     font-family: 'Open Sans', sans-serif;
-    font-size: 2.1vmin;
+    font-size: 13px;
 }
 
 .note_title {
@@ -67,11 +65,11 @@
     padding: 0%;
     font-family: 'Open Sans', sans-serif;
     font-weight: 600;
-    font-size: 2.1vmin;
+    font-size: 13px;
 }
 
 .note_title>svg {
-    width: 0.9vw;
+    width: 0.7em;
 }
 
 .note .note_preview {
@@ -91,17 +89,16 @@
 }
 
 .all_notes {
-
     display: flex;
     align-content: flex-start;
     overflow: auto;
     width: 100%;
     gap: 10px;
-    height: 84.8vh;
+    height: calc(100vh - 4.5em);
     flex-direction: column;
     flex-wrap: wrap;
-    padding: 5px 120px;
-
+    padding: 20px 120px;
+  
 }
 
 /* animation keyframe */

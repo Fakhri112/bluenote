@@ -6,11 +6,8 @@ import {
 	signInWithEmailAndPassword,
 	createUserWithEmailAndPassword,
 	signInWithPopup,
-	sendPasswordResetEmail
+	sendPasswordResetEmail,
 } from "firebase/auth";
-import fb_btn from "../../public/login-assets/fb_btn.jpg";
-import google_btn from "../../public/login-assets/google_btn.png";
-import colornote from "../../public/login-assets/colornote.png";
 import style from "../style/authpage.module.css";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
@@ -69,8 +66,8 @@ const Authpage = () => {
 			const user = signInWithEmailAndPassword(
 				auth,
 				userEmail,
-				userPassword.pwd
-			)
+				userPassword.pwd,
+			);
 			localStorage.setItem("logged_user", JSON.stringify(user));
 			router.reload();
 		} catch (error) {
@@ -80,15 +77,12 @@ const Authpage = () => {
 
 	const forgotPW = async () => {
 		try {
-			const user = await sendPasswordResetEmail(
-				auth,
-				userEmail,
-			);
-			alert('Password reset has successfully sent to your email')
+			const user = await sendPasswordResetEmail(auth, userEmail);
+			alert("Password reset has successfully sent to your email");
 		} catch (error) {
 			console.log(error);
 		}
-	}
+	};
 
 	useEffect(() => {
 		document.body.style.backgroundColor =
@@ -219,11 +213,11 @@ const Authpage = () => {
 						<Button variant="primary" onClick={() => signIn()}>
 							Sign-in
 						</Button>
-					) : authType.forgotPW ?
-						(<Button variant="primary" onClick={() => forgotPW()}>
+					) : authType.forgotPW ? (
+						<Button variant="primary" onClick={() => forgotPW()}>
 							Send Password
-						</Button>)
-					: (
+						</Button>
+					) : (
 						<Button variant="primary" onClick={() => signUp()}>
 							Sign-Up
 						</Button>
@@ -233,17 +227,23 @@ const Authpage = () => {
 			<div className={style.brand}>
 				<h1>BlueNote</h1>
 				<Image
-					src={colornote}
+					src={"/login-assets/colornote.png"}
 					alt="Picture of the author"
 					width={650}
 					height={300}></Image>
 			</div>
 			<div className={style.button_group}>
 				<button onClick={signFB}>
-					<Image src={fb_btn} width={300} height={60}></Image>
+					<Image
+						src={"/login-assets/fb_btn.jpg"}
+						width={300}
+						height={65}></Image>
 				</button>
 				<button onClick={signGoogle}>
-					<Image src={google_btn}></Image>
+					<Image
+						src={"/login-assets/google_btn.png"}
+						width={300}
+						height={70}></Image>
 				</button>
 			</div>
 			<div className={`${style.button_group} mt-3`}>

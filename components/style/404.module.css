@@ -3,10 +3,9 @@
 
 .wrapper {
     text-align: center;
-    padding: 0 35vw;
-    padding-top: 20vh;
+    padding: 2em;
+    padding-top: 6em;
     height: 100vh;
-    outline: 1px solid black;
 }
 
 .wrapper h1 {
@@ -14,25 +13,25 @@
     font-family: 'Oswald', sans-serif;
     color: black;
     font-weight: 600;
-    font-size: 25vmin;
+    font-size: 10em;
 }
 
 .wrapper h2 {
     font-family: 'Oswald', sans-serif;
     color: black;
-    font-size: 5.5vmin !important;
+    font-size: 34px !important;
     font-weight: 700;
 }
 
 .wrapper p {
 
     font-weight: 500;
-    font-size: 2.2vmin;
+    font-size: 13px;
 }
 
 .wrapper a {
     box-shadow: 2px 2px 2px #00ffc0;
     font-weight: 500;
     border: 3px solid black;
-    padding: 1.3vh 5.5vh;
+    padding: 1em 2.5em;
 }

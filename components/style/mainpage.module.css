@@ -22,13 +22,13 @@
 
     font-family: 'Poppins', sans-serif;
     font-style: italic;
-    font-size: 2vmin;
+    font-size: 12px;
 }
 
 .title>h1 {
 
     font-family: 'Kdam Thmor Pro', sans-serif;
-    font-size: 4vmin;
+    font-size: 24px;
     margin-top: unset !important;
     margin-bottom: 0 !important;
 
@@ -50,13 +50,13 @@
 }
 
 .dropdown {
-    font-size: 2.5vmin;
-    min-width: 28vh !important;
+    font-size: 15px;
+    min-width: 10em !important;
 }
 
 /* left and right panel font size  */
 .button_label {
-    font-size: 2.5vmin
+    font-size: 15px
 }
 
 
@@ -75,9 +75,9 @@
 .add_block {
     min-width: 100px;
     min-height: 105px;
-    width: 24.6vh;
-    height: 25.6vh;
-    border: 1px solid rgb(155, 155, 155);
+    width: 10em;
+    height: 10em;
+    border: 1px solid rgb(31, 1, 1);
     border-style: dashed;
     display: flex;
     flex-direction: column;
@@ -91,20 +91,19 @@
 }
 
 .add_block:hover {
-    outline: 0.4vmin solid rgb(134, 134, 134);
-    outline-offset: 0.3vmin;
+    outline: 2px solid rgb(134, 134, 134);
+    outline-offset: 2px;
 }
 
 /* main note section */
 
 .notes_section {
-    width: 77.8vh;
+    width: 30.7em;
     animation: slide-left 0.3s 0.2s both;
 }
 
 .notes {
-    width: 24.6vh;
-    height: 25.6vh;
+    width: 9.5em;
     overflow-y: hidden;
     padding: 0 4px;
     animation: slide-left 0.3s 0.2s both;
@@ -113,7 +112,7 @@
 .notes:hover {
     cursor: pointer;
     position: relative;
-    outline: 0.32vmin solid rgb(163, 163, 163);
+    outline: 2px solid rgb(163, 163, 163);
     outline-offset: 0.19vmin;
 }
 
@@ -125,7 +124,7 @@
 
 .notes>p {
     font-family: 'Open Sans', sans-serif;
-    font-size: 2.1vmin;
+    font-size: 13px;
 }
 
 .note_title {
@@ -140,7 +139,7 @@
     padding: 0%;
     font-family: 'Open Sans', sans-serif;
     font-weight: 600;
-    font-size: 2.1vmin;
+    font-size: 13px;
 }
 
 .note_preview {
@@ -150,14 +149,14 @@
 }
 
 .all_note {
-    display: flex;
-    align-content: flex-start;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-rows: repeat(3, minmax(0, 1fr));
+    grid-auto-flow: column;
     overflow: auto;
     width: 100%;
-    gap: 1.35vmin;
-    height: 82.6vh;
-    flex-direction: column;
-    flex-wrap: wrap;
+    gap: 0.7em;
+    height: 30.5em;
     padding: 0.3vmax;
 
 }
@@ -165,19 +164,19 @@
 /* more selection */
 
 .more {
-    min-width: 30vh;
+    min-width: 11em;
     animation: slide-left 0.3s both;
     z-index: 0;
 }
 
 
 .more_block:hover {
-    outline: 0.4vmin solid rgb(134, 134, 134);
-    outline-offset: 0.3vmin;
+    outline: 2px solid rgb(134, 134, 134);
+    outline-offset: 2px;
 }
 
 .more_block {
-    height: 20.8vh;
+    height: 8em;
     background-color: #555555;
     display: flex;
     justify-content: center;

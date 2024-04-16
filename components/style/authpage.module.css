@@ -11,18 +11,18 @@
 
 .brand>h1 {
     font-family: 'Kdam Thmor Pro', sans-serif;
-    font-size: 5vmin;
+    font-size: 30px;
 }
 
 .button_group {
     display: flex;
     justify-content: center;
-    gap: 5vh;
+    gap: 2em;
 }
 
 .button_group>button {
     background-color: transparent;
-    width: 30vh;
+    width: 12em;
     border: unset;
 }
 

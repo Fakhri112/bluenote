@@ -14,18 +14,18 @@ header>.menu {
 }
 
 .menu>input {
-    min-width: 12vh;
-    height: 4.96vh;
-    width: 7.321vw;
-    font-size: 2.1vmin;
+    min-width: 8em;
+    height: 2.4em;
+    width: 10em;
+    font-size: 13px;
 }
 
 
 .dropdown>button {
-    min-width: 12vh;
-    width: 6.589vw;
-    height: 4.96vh;
-    font-size: 2.1vmin;
+    min-width: 8em;
+    width: 10em;
+    height: 2.4em;
+    font-size: 13px;
     border-radius: 0%;
 }
 
@@ -34,7 +34,7 @@ header>.menu {
 }
 
 .dropdown>ul>li>a {
-    font-size: 2.4vmin;
+    font-size: 13px;
 }
 
 .dropdown_plus {
@@ -43,7 +43,7 @@ header>.menu {
 }
 
 .add_new {
-    font-size: 2.5vmin;
+    font-size: 13px;
 }
 
 .user>button {
@@ -57,12 +57,11 @@ header>.menu {
     position: absolute;
     width: 100%;
     z-index: -1;
-    margin-top: 12px;
 }
 
 .note {
-    width: calc(25.6vh - 1vh);
-    height: 25.6vh;
+    width: 9.4em;
+    height: 9.7em;
     overflow-y: hidden;
     padding: 0 4px;
 
@@ -73,8 +72,8 @@ header>.menu {
 
     cursor: pointer;
     position: relative;
-    outline: 0.32vmin solid rgb(163, 163, 163);
-    outline-offset: 0.2vmin;
+    outline: 0.2em solid rgb(163, 163, 163);
+    outline-offset: 0.1px;
 }
 
 
@@ -85,7 +84,7 @@ header>.menu {
 
 .note>p {
     font-family: 'Open Sans', sans-serif;
-    font-size: 2.1vmin;
+    font-size: 13px;
 }
 
 .note_title {
@@ -100,7 +99,7 @@ header>.menu {
     padding: 0%;
     font-family: 'Open Sans', sans-serif;
     font-weight: 600;
-    font-size: 2.1vmin;
+    font-size: 13px;
 }
 
 .note_preview {
@@ -110,16 +109,16 @@ header>.menu {
 }
 
 .all_notes {
-
+   
     display: flex;
     align-content: flex-start;
     overflow: auto;
     width: 100%;
     gap: 10px;
-    height: 84.8vh;
+    height: calc(100vh - 4.5em);
     flex-direction: column;
     flex-wrap: wrap;
-    padding: 5px 120px;
+    padding: 20px 120px;
 
 }
 
