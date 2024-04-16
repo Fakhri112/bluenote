@@ -63,7 +63,7 @@ const Authpage = () => {
 
 	const signIn = async () => {
 		try {
-			const user = signInWithEmailAndPassword(
+			const user = await signInWithEmailAndPassword(
 				auth,
 				userEmail,
 				userPassword.pwd,
